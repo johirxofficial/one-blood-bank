@@ -1,0 +1,5 @@
+level,name,name_bn,parent,code,latitude,longitude
+division,Example Division,উদাহরণ বিভাগ,,EX-DIV,,
+district,Example District,উদাহরণ জেলা,Example Division,EX-DIS,,
+upazila,Example Upazila,উদাহরণ উপজেলা,Example District,EX-UPA,,
+union,Example Union,উদাহরণ ইউনিয়ন,Example Upazila,EX-UNI,,

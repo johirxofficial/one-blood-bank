@@ -1,0 +1,27 @@
+<?php
+
+namespace Database\Factories;
+
+use App\Models\Division;
+use Illuminate\Database\Eloquent\Factories\Factory;
+use Illuminate\Support\Str;
+
+/**
+ * @extends Factory<Division>
+ */
+class DivisionFactory extends Factory
+{
+    /**
+     * @return array<string, mixed>
+     */
+    public function definition(): array
+    {
+        $name = fake()->unique()->city();
+
+        return [
+            'name' => $name,
+            'name_bn' => $name,
+            'slug' => Str::slug($name),
+        ];
+    }
+}
