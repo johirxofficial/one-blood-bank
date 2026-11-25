@@ -1091,5 +1091,11 @@
     "ভাষা কোড সঠিক নয়। উদাহরণ: en, hi, ar, es, pt_BR।": "Invalid language code. Examples: en, hi, ar, es, pt_BR.",
     "JSON ফাইলটি {\"বাংলা টেক্সট\": \"অনুবাদ\"} ফরম্যাটে হতে হবে।": "The JSON file must use the format {\"Bengali text\": \"translation\"}.",
     "ফাইলে কোনো ব্যবহারযোগ্য অনুবাদ পাওয়া যায়নি।": "No usable translations were found in the file.",
-    "ডিকশনারি ফাইল storage/app/languages/{locale}.json এ রাখা হয়। উদাহরণ ফাইল:": "The dictionary is stored at storage/app/languages/{locale}.json. Example file:"
+    "ডিকশনারি ফাইল storage/app/languages/{locale}.json এ রাখা হয়। উদাহরণ ফাইল:": "The dictionary is stored at storage/app/languages/{locale}.json. Example file:",
+    "সাইটটি ফ্রি রাখতে সাহায্য করুন": "Help keep this site free",
+    "ছোট একটি সহযোগিতা সার্ভার ও ডোমেইন খরচে কাজে লাগে।": "Even a small contribution helps cover server and domain costs.",
+    "ডেভেলপার ও রক্ষণাবেক্ষণ:": "Developer & maintenance:",
+    "· ওপেন সোর্স কোড:": "· Open-source code:",
+    "ডেভেলপার ও রক্ষণাবেক্ষণ": "Developer & maintenance",
+    "ওপেন সোর্স কোড": "Open-source code"
 }

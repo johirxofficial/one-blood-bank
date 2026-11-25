@@ -35,4 +35,17 @@ class DashboardTest extends TestCase
             ->assertOk()
             ->assertDontSee('সাইটটি ফ্রি রাখতে সাহায্য করুন');
     }
+
+    public function test_dashboard_donation_link_is_translated_in_english_mode(): void
+    {
+        app()->setLocale('en');
+        config(['app.locale' => 'en']);
+
+        $user = User::query()->where('email', 'donor@thebloodbank.test')->firstOrFail();
+
+        $this->actingAs($user)
+            ->get(route('dashboard'))
+            ->assertOk()
+            ->assertSee('Help keep this site free');
+    }
 }
