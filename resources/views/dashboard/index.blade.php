@@ -130,6 +130,19 @@
                     </li>
                 </ul>
             </div>
+
+            @if (\App\Models\Setting::get('donation.enabled', true))
+                <a href="{{ route('donate.index') }}" class="group block rounded-2xl border border-rose-100 bg-gradient-to-br from-rose-50 to-amber-50 p-4 transition hover:border-rose-200 hover:shadow-sm">
+                    <div class="flex items-start gap-3">
+                        <span class="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-white text-lg shadow-sm">💝</span>
+                        <div class="min-w-0">
+                            <p class="text-sm font-bold text-slate-900">সাইটটি ফ্রি রাখতে সাহায্য করুন</p>
+                            <p class="mt-0.5 text-xs leading-relaxed text-slate-600">ছোট একটি সহযোগিতা সার্ভার ও ডোমেইন খরচে কাজে লাগে।</p>
+                            <span class="mt-2 inline-flex items-center gap-1 text-xs font-semibold text-rose-600 group-hover:underline">সহযোগিতা করুন <span aria-hidden="true">→</span></span>
+                        </div>
+                    </div>
+                </a>
+            @endif
         </div>
     </div>
 

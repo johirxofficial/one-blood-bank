@@ -188,7 +188,13 @@
             @if (\App\Models\Setting::get('others.footer_text'))
                 <p class="mb-1">{{ \App\Models\Setting::get('others.footer_text') }}</p>
             @endif
-            © {{ now()->year }} {{ \App\Models\Setting::get('site.name', 'One Blood Bank') }} — সর্বস্বত্ব সংরক্ষিত।
+            <p>© {{ now()->year }} {{ \App\Models\Setting::get('site.name', 'One Blood Bank') }} — সর্বস্বত্ব সংরক্ষিত।</p>
+            <p class="mt-1">
+                ডেভেলপার ও রক্ষণাবেক্ষণ:
+                <a href="https://github.com/johirxofficial" target="_blank" rel="noopener" class="font-semibold text-slate-600 hover:text-brand-700">johirxofficial</a>
+                · ওপেন সোর্স কোড:
+                <a href="https://github.com/johirxofficial/one-blood-bank" target="_blank" rel="noopener" class="font-semibold text-slate-600 hover:text-brand-700">GitHub</a>
+            </p>
         </div>
     </footer>
 
