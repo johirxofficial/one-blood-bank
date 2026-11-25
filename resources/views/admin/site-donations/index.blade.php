@@ -6,27 +6,27 @@
 @section('content')
     <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">সাইট ডোনেশন</h2>
-            <p class="mt-1 text-sm text-slate-600">ব্যবহারকারীর জমা দেওয়া সহযোগিতা যাচাই বা বাতিল করুন।</p>
+            <h2 class="text-2xl font-semibold tracking-tight text-ink">সাইট ডোনেশন</h2>
+            <p class="mt-1 text-sm text-ink-soft">ব্যবহারকারীর জমা দেওয়া সহযোগিতা যাচাই বা বাতিল করুন।</p>
         </div>
     </div>
 
     <div class="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
         <div class="card p-4">
-            <p class="text-xs text-slate-500">মোট যাচাইকৃত</p>
-            <p class="mt-1 text-2xl font-extrabold text-emerald-600">{{ number_format($stats['verified_amount'], 0) }} {{ \App\Models\Setting::get('donation.currency', 'BDT') }}</p>
+            <p class="text-xs text-ink-muted">মোট যাচাইকৃত</p>
+            <p class="mt-1 text-2xl font-semibold text-[#15803d]">{{ number_format($stats['verified_amount'], 0) }} {{ \App\Models\Setting::get('donation.currency', 'BDT') }}</p>
         </div>
         <div class="card p-4">
-            <p class="text-xs text-slate-500">সহযোগী</p>
-            <p class="mt-1 text-2xl font-extrabold text-slate-900">{{ number_format($stats['verified_count']) }}</p>
+            <p class="text-xs text-ink-muted">সহযোগী</p>
+            <p class="mt-1 text-2xl font-semibold text-ink">{{ number_format($stats['verified_count']) }}</p>
         </div>
         <div class="card p-4">
-            <p class="text-xs text-slate-500">অপেক্ষমাণ</p>
-            <p class="mt-1 text-2xl font-extrabold text-amber-600">{{ number_format($stats['pending_count']) }}</p>
+            <p class="text-xs text-ink-muted">অপেক্ষমাণ</p>
+            <p class="mt-1 text-2xl font-semibold text-[#8a5a12]">{{ number_format($stats['pending_count']) }}</p>
         </div>
         <div class="card p-4">
-            <p class="text-xs text-slate-500">এই মাসে</p>
-            <p class="mt-1 text-2xl font-extrabold text-slate-900">{{ number_format($stats['month_amount'], 0) }}</p>
+            <p class="text-xs text-ink-muted">এই মাসে</p>
+            <p class="mt-1 text-2xl font-semibold text-ink">{{ number_format($stats['month_amount'], 0) }}</p>
         </div>
     </div>
 
@@ -65,22 +65,22 @@
                 @forelse ($donations as $donation)
                     <tr>
                         <td>
-                            <p class="font-semibold text-slate-900">{{ $donation->name }}</p>
-                            <p class="text-xs text-slate-500">{{ $donation->phone ?: $donation->email ?: '—' }}</p>
+                            <p class="font-semibold text-ink">{{ $donation->name }}</p>
+                            <p class="text-xs text-ink-muted">{{ $donation->phone ?: $donation->email ?: '—' }}</p>
                             @if ($donation->user)
-                                <p class="text-[11px] text-slate-400">@ {{ $donation->user->username }}</p>
+                                <p class="text-[11px] text-ink-muted">@ {{ $donation->user->username }}</p>
                             @endif
                         </td>
-                        <td class="whitespace-nowrap font-bold text-slate-900">{{ number_format($donation->amount, 0) }} {{ $donation->currency }}</td>
-                        <td class="text-xs text-slate-600">{{ $donation->methodLabel() }}</td>
-                        <td class="font-mono text-xs text-slate-600">{{ $donation->transaction_id ?: '—' }}</td>
+                        <td class="whitespace-nowrap font-semibold text-ink">{{ number_format($donation->amount, 0) }} {{ $donation->currency }}</td>
+                        <td class="text-xs text-ink-soft">{{ $donation->methodLabel() }}</td>
+                        <td class="font-mono text-xs text-ink-soft">{{ $donation->transaction_id ?: '—' }}</td>
                         <td><span class="badge {{ $donation->statusBadgeClasses() }}">{{ $donation->statusLabel() }}</span></td>
-                        <td class="whitespace-nowrap text-xs text-slate-500">{{ $donation->created_at->format('d M Y, h:i A') }}</td>
+                        <td class="whitespace-nowrap text-xs text-ink-muted">{{ $donation->created_at->format('d M Y, h:i A') }}</td>
                         <td>
                             <div class="flex items-center justify-end gap-1.5">
                                 <details class="relative">
                                     <summary class="btn-secondary btn-sm cursor-pointer list-none">আপডেট</summary>
-                                    <div class="absolute right-0 z-20 mt-2 w-72 rounded-xl border border-slate-200 bg-white p-4 text-left shadow-xl">
+                                    <div class="absolute right-0 z-20 mt-2 w-72 rounded-xl border border-line bg-surface p-4 text-left shadow-sm">
                                         <form method="POST" action="{{ route('admin.site-donations.update', $donation) }}" class="space-y-3">
                                             @csrf
                                             @method('PUT')
@@ -103,21 +103,21 @@
                                 <form method="POST" action="{{ route('admin.site-donations.destroy', $donation) }}" onsubmit="return confirm('রেকর্ডটি মুছে ফেলতে চান?')">
                                     @csrf
                                     @method('DELETE')
-                                    <button class="btn-ghost btn-sm text-rose-600 hover:bg-rose-50">মুছুন</button>
+                                    <button class="btn-ghost btn-sm text-brand-700 hover:bg-brand-50">মুছুন</button>
                                 </form>
                             </div>
                         </td>
                     </tr>
                     @if ($donation->message || $donation->admin_note)
-                        <tr class="bg-slate-50/60">
-                            <td colspan="7" class="text-xs text-slate-600">
+                        <tr class="bg-raised/60">
+                            <td colspan="7" class="text-xs text-ink-soft">
                                 @if ($donation->message)<span class="font-semibold">বার্তা:</span> {{ $donation->message }} @endif
                                 @if ($donation->admin_note)<span class="ml-2 font-semibold">নোট:</span> {{ $donation->admin_note }} @endif
                             </td>
                         </tr>
                     @endif
                 @empty
-                    <tr><td colspan="7" class="py-10 text-center text-sm text-slate-500">কোনো ডোনেশন রেকর্ড নেই।</td></tr>
+                    <tr><td colspan="7" class="py-10 text-center text-sm text-ink-muted">কোনো ডোনেশন রেকর্ড নেই।</td></tr>
                 @endforelse
             </tbody>
         </table>

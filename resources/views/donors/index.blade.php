@@ -6,15 +6,15 @@
 @section('content')
     <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">ডোনার খুঁজুন</h1>
-            <p class="mt-1 text-sm text-slate-600">
+            <h1 class="font-display text-3xl font-normal tracking-[-0.01em] text-ink">ডোনার খুঁজুন</h1>
+            <p class="mt-1 text-sm text-ink-soft">
                 {{ number_format($donors->total()) }} জন ভেরিফাইড ডোনার পাওয়া গেছে
                 @if (filled($filters['q'] ?? null))
                     — “{{ $filters['q'] }}”
                 @endif
             </p>
         </div>
-        <a href="{{ route('requests.index') }}" class="btn-secondary">🩸 রক্তের অনুরোধ দেখুন</a>
+        <a href="{{ route('requests.index') }}" class="btn-secondary">রক্তের অনুরোধ দেখুন</a>
     </div>
 
     {{-- Filters --}}
@@ -94,9 +94,11 @@
 
     @if ($donors->isEmpty())
         <div class="card mt-6 p-10 text-center">
-            <p class="text-4xl">🔍</p>
-            <h2 class="mt-3 text-lg font-bold text-slate-900">কোনো ডোনার পাওয়া যায়নি</h2>
-            <p class="mt-1 text-sm text-slate-600">ফিল্টার একটু শিথিল করে আবার চেষ্টা করুন, অথবা কাছের জেলা নির্বাচন করুন।</p>
+            <svg class="mx-auto h-6 w-6 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 4 4" stroke-linecap="round"/>
+            </svg>
+            <h2 class="mt-3 text-lg font-medium text-ink">কোনো ডোনার পাওয়া যায়নি</h2>
+            <p class="mt-1 text-sm text-ink-soft">ফিল্টার একটু শিথিল করে আবার চেষ্টা করুন, অথবা কাছের জেলা নির্বাচন করুন।</p>
             <a href="{{ route('donors.index') }}" class="btn-secondary mt-4">সব ডোনার দেখুন</a>
         </div>
     @else

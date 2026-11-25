@@ -1,12 +1,13 @@
 @extends('layouts.app')
 
-@section('title', 'ফ্রি অ্যাকাউন্ট খুলুন — One Blood Bank')
+@section('title', 'অ্যাকাউন্ট খুলুন — One Blood Bank')
 
 @section('content')
     <div class="mx-auto max-w-3xl">
-        <div class="text-center">
-            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">ফ্রি অ্যাকাউন্ট খুলুন</h1>
-            <p class="mt-2 text-sm text-slate-600">ডোনার খুঁজতে ও ডোনার হতে অ্যাকাউন্ট তৈরি করুন। মাত্র ১ মিনিট।</p>
+        <div class="max-w-xl">
+            <p class="eyebrow">নতুন অ্যাকাউন্ট</p>
+            <h1 class="display-title mt-3 text-3xl sm:text-4xl">অ্যাকাউন্ট খুলুন</h1>
+            <p class="mt-2 text-sm text-ink-soft">ডোনার খুঁজতে ও ডোনার হতে অ্যাকাউন্ট তৈরি করুন। মাত্র ১ মিনিট।</p>
         </div>
 
         <form method="POST" action="{{ route('register') }}" class="card mt-6 space-y-5 p-6 sm:p-8">
@@ -20,8 +21,8 @@
 
                 <div>
                     <label class="label" for="username">ইউজারনেম <span class="text-brand-600">*</span></label>
-                    <div class="flex rounded-xl shadow-sm">
-                        <span class="inline-flex items-center rounded-l-xl border border-r-0 border-slate-300 bg-slate-50 px-3 text-sm text-slate-500">@</span>
+                    <div class="flex">
+                        <span class="inline-flex items-center rounded-l-lg border border-r-0 border-line bg-raised px-3 text-sm text-ink-muted">@</span>
                         <input type="text" name="username" id="username" value="{{ old('username') }}" class="input rounded-l-none" required autocomplete="username" placeholder="rakib_hasan" pattern="[a-z0-9_\-]+">
                     </div>
                     <p class="help">ছোট হাতের অক্ষর, সংখ্যা, - ও _ ব্যবহার করুন। এটাই হবে আপনার প্রোফাইল লিংক।</p>
@@ -55,29 +56,29 @@
                 </div>
             </div>
 
-            <div class="rounded-xl bg-slate-50 p-3 text-xs leading-relaxed text-slate-600">
-                <p class="font-semibold text-slate-700">পাসওয়ার্ডে থাকতে হবে:</p>
-                <p>কমপক্ষে ৮ অক্ষর, অন্তত একটি অক্ষর ও একটি সংখ্যা।</p>
+            <div class="rounded-lg bg-raised/60 p-3 text-xs leading-relaxed text-ink-soft">
+                <p class="font-medium text-ink">পাসওয়ার্ডে থাকতে হবে</p>
+                <p class="mt-0.5">কমপক্ষে ৮ অক্ষর, অন্তত একটি অক্ষর ও একটি সংখ্যা।</p>
             </div>
 
-            <label class="flex items-start gap-2 text-sm text-slate-600">
-                <input type="checkbox" name="terms" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500" required>
+            <label class="flex items-start gap-2 text-sm text-ink-soft">
+                <input type="checkbox" name="terms" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-700 focus:ring-brand-600/30" required>
                 <span>
                     @if (app()->getLocale() === 'en')
-                        I agree to the <a href="{{ route('pages.show', 'terms') }}" class="font-semibold text-brand-700 hover:underline">Terms</a>
-                        and <a href="{{ route('pages.show', 'privacy-policy') }}" class="font-semibold text-brand-700 hover:underline">Privacy Policy</a>.
+                        I agree to the <a href="{{ route('pages.show', 'terms') }}" class="font-medium text-brand-700 hover:underline">Terms</a>
+                        and <a href="{{ route('pages.show', 'privacy-policy') }}" class="font-medium text-brand-700 hover:underline">Privacy Policy</a>.
                     @else
-                        আমি <a href="{{ route('pages.show', 'terms') }}" class="font-semibold text-brand-700 hover:underline">শর্তাবলী</a>
-                        ও <a href="{{ route('pages.show', 'privacy-policy') }}" class="font-semibold text-brand-700 hover:underline">গোপনীয়তা নীতি</a> সম্মত আছি।
+                        আমি <a href="{{ route('pages.show', 'terms') }}" class="font-medium text-brand-700 hover:underline">শর্তাবলী</a>
+                        ও <a href="{{ route('pages.show', 'privacy-policy') }}" class="font-medium text-brand-700 hover:underline">গোপনীয়তা নীতি</a> সম্মত আছি।
                     @endif
                 </span>
             </label>
 
-            <button type="submit" class="btn-primary w-full py-3">অ্যাকাউন্ট তৈরি করুন</button>
+            <button type="submit" class="btn-primary w-full">অ্যাকাউন্ট তৈরি করুন</button>
 
-            <p class="text-center text-sm text-slate-600">
+            <p class="text-center text-sm text-ink-soft">
                 আগে থেকেই অ্যাকাউন্ট আছে?
-                <a href="{{ route('login') }}" class="font-semibold text-brand-700 hover:underline">লগইন করুন</a>
+                <a href="{{ route('login') }}" class="font-medium text-brand-700 hover:underline">লগইন করুন</a>
             </p>
         </form>
     </div>

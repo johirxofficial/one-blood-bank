@@ -11,7 +11,7 @@
         @foreach ($ads as $ad)
             @if ($ad->type === \App\Enums\AdType::Banner && $ad->image_path)
                 <a href="{{ $ad->target_url ?: '#' }}" target="_blank" rel="noopener sponsored"
-                   class="block overflow-hidden rounded-xl border border-slate-200">
+                   class="block overflow-hidden rounded-xl border border-line">
                     <img src="{{ asset('storage/'.$ad->image_path) }}" alt="{{ $ad->title }}" class="w-full" loading="lazy">
                 </a>
             @elseif ($ad->code)

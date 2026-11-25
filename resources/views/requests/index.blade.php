@@ -6,12 +6,12 @@
 @section('content')
     <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-            <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">জরুরি রক্তের অনুরোধ</h1>
-            <p class="mt-1 text-sm text-slate-600">চলমান {{ number_format($requests->total()) }} টি অনুরোধ</p>
+            <h1 class="font-display text-3xl font-normal tracking-[-0.01em] text-ink">জরুরি রক্তের অনুরোধ</h1>
+            <p class="mt-1 text-sm text-ink-soft">চলমান {{ number_format($requests->total()) }} টি অনুরোধ</p>
         </div>
 
         @auth
-            <button type="button" data-menu-toggle="request-form" class="btn-primary">+ অনুরোধ পোস্ট করুন</button>
+            <button type="button" data-menu-toggle="request-form" class="btn-primary">অনুরোধ পোস্ট করুন</button>
         @else
             <a href="{{ route('login') }}" class="btn-primary">অনুরোধ পোস্ট করতে লগইন করুন</a>
         @endauth
@@ -21,7 +21,7 @@
         <div id="request-form" class="mt-5 hidden">
             <form method="POST" action="{{ route('requests.store') }}" class="card space-y-4 p-5 sm:p-6">
                 @csrf
-                <h2 class="text-base font-bold text-slate-900">নতুন রক্তের অনুরোধ</h2>
+                <h2 class="text-base font-semibold text-ink">নতুন রক্তের অনুরোধ</h2>
 
                 <div class="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
                     <div>
@@ -100,41 +100,43 @@
 
     @if ($requests->isEmpty())
         <div class="card mt-6 p-10 text-center">
-            <p class="text-4xl">✅</p>
-            <h2 class="mt-3 text-lg font-bold text-slate-900">এখন কোনো চলমান অনুরোধ নেই</h2>
-            <p class="mt-1 text-sm text-slate-600">আপনার প্রয়োজন থাকলে উপরে “অনুরোধ পোস্ট করুন” ক্লিক করুন।</p>
+            <svg class="mx-auto h-6 w-6 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                <circle cx="12" cy="12" r="8.5"/><path d="m8 12 2.5 2.5L16 9" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+            <h2 class="mt-3 text-lg font-medium text-ink">এখন কোনো চলমান অনুরোধ নেই</h2>
+            <p class="mt-1 text-sm text-ink-soft">আপনার প্রয়োজন থাকলে উপরে “অনুরোধ পোস্ট করুন” ক্লিক করুন।</p>
         </div>
     @else
         <div class="mt-6 grid gap-4 md:grid-cols-2">
             @foreach ($requests as $bloodRequest)
-                <article class="card border-l-4 border-l-brand-600 p-5">
+                <article class="card border-l-2 border-l-brand-700 p-5">
                     <div class="flex items-start justify-between gap-3">
                         <div>
-                            <h2 class="text-base font-bold text-slate-900">{{ $bloodRequest->patient_name }}</h2>
-                            <p class="mt-0.5 text-xs text-slate-500">{{ $bloodRequest->hospital }}</p>
+                            <h2 class="text-base font-semibold text-ink">{{ $bloodRequest->patient_name }}</h2>
+                            <p class="mt-0.5 text-xs text-ink-muted">{{ $bloodRequest->hospital }}</p>
                         </div>
                         <x-blood-badge :group="$bloodRequest->blood_group" />
                     </div>
 
                     <div class="mt-3 flex flex-wrap gap-2 text-xs">
                         <span class="badge bg-brand-50 text-brand-700">{{ $bloodRequest->units }} ব্যাগ</span>
-                        <span class="badge bg-slate-100 text-slate-600">{{ $bloodRequest->district?->localizedName() ?? 'এলাকা নেই' }}</span>
-                        <span class="badge bg-amber-50 text-amber-800">{{ $bloodRequest->needed_at->diffForHumans(now(), ['parts' => 1, 'short' => true]) }}</span>
+                        <span class="badge bg-raised text-ink-soft">{{ $bloodRequest->district?->localizedName() ?? 'এলাকা নেই' }}</span>
+                        <span class="badge bg-[#f8efd9] text-[#6b4e16]">{{ $bloodRequest->needed_at->diffForHumans(now(), ['parts' => 1, 'short' => true]) }}</span>
                     </div>
 
                     @if ($bloodRequest->note)
-                        <p class="mt-3 text-sm leading-relaxed text-slate-600">{{ $bloodRequest->note }}</p>
+                        <p class="mt-3 text-sm leading-relaxed text-ink-soft">{{ $bloodRequest->note }}</p>
                     @endif
 
-                    <div class="mt-4 flex items-center justify-between gap-3 border-t border-slate-100 pt-3">
-                        <p class="text-sm font-semibold text-slate-900">
+                    <div class="mt-4 flex items-center justify-between gap-3 border-t border-line pt-3">
+                        <p class="text-sm font-semibold text-ink">
                             @if ($canSeePhone)
-                                ☎ {{ $bloodRequest->contact_phone }}
+                                {{ $bloodRequest->contact_phone }}
                             @else
-                                <span class="text-slate-400">☎ লগইন করে নম্বর দেখুন</span>
+                                <span class="text-ink-muted">লগইন করে নম্বর দেখুন</span>
                             @endif
                         </p>
-                        <span class="text-[11px] text-slate-400">{{ $bloodRequest->created_at->diffForHumans() }}</span>
+                        <span class="text-[11px] text-ink-muted">{{ $bloodRequest->created_at->diffForHumans() }}</span>
                     </div>
                 </article>
             @endforeach

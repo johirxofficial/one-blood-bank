@@ -6,8 +6,8 @@
 @section('content')
     <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">ইউজার ম্যানেজমেন্ট</h2>
-            <p class="mt-1 text-sm text-slate-600">মোট {{ number_format($users->total()) }} জন রেজিস্টার্ড ইউজার।</p>
+            <h2 class="text-2xl font-semibold tracking-tight text-ink">ইউজার ম্যানেজমেন্ট</h2>
+            <p class="mt-1 text-sm text-ink-soft">মোট {{ number_format($users->total()) }} জন রেজিস্টার্ড ইউজার।</p>
         </div>
     </div>
 
@@ -50,17 +50,17 @@
                             <div class="flex items-center gap-3">
                                 <img src="{{ $user->avatarUrl() }}" alt="{{ $user->name }}" class="h-9 w-9 rounded-lg object-cover">
                                 <div class="min-w-0">
-                                    <p class="truncate font-semibold text-slate-900">{{ $user->name }}</p>
-                                    <p class="truncate text-xs text-slate-500">@ {{ $user->username }}</p>
+                                    <p class="truncate font-semibold text-ink">{{ $user->name }}</p>
+                                    <p class="truncate text-xs text-ink-muted">@ {{ $user->username }}</p>
                                 </div>
                             </div>
                         </td>
                         <td class="text-xs">
-                            <p class="break-all text-slate-700">{{ $user->email }}</p>
-                            <p class="text-slate-500">{{ $user->phone }}</p>
+                            <p class="break-all text-ink-soft">{{ $user->email }}</p>
+                            <p class="text-ink-muted">{{ $user->phone }}</p>
                         </td>
                         <td>
-                            <span class="badge {{ $user->isStaff() ? 'bg-violet-50 text-violet-700' : 'bg-slate-100 text-slate-600' }}">
+                            <span class="badge {{ $user->isStaff() ? 'bg-violet-50 text-violet-700' : 'bg-raised text-ink-soft' }}">
                                 {{ $user->role->label() }}
                             </span>
                         </td>
@@ -68,21 +68,21 @@
                             @if ($user->donor)
                                 <span class="badge {{ $user->donor->status->badgeClasses() }}">{{ $user->donor->status->label() }}</span>
                             @else
-                                <span class="text-slate-400">নন-ডোনার</span>
+                                <span class="text-ink-muted">নন-ডোনার</span>
                             @endif
                         </td>
                         <td class="text-xs">
-                            <p class="{{ $user->phone_verified_at ? 'text-emerald-600' : 'text-rose-500' }}">মোবাইল {{ $user->phone_verified_at ? '✓' : '✗' }}</p>
-                            <p class="{{ $user->email_verified_at ? 'text-emerald-600' : 'text-rose-500' }}">ইমেইল {{ $user->email_verified_at ? '✓' : '✗' }}</p>
+                            <p class="{{ $user->phone_verified_at ? 'text-[#15803d]' : 'text-brand-700' }}">মোবাইল {{ $user->phone_verified_at ? '✓' : '✗' }}</p>
+                            <p class="{{ $user->email_verified_at ? 'text-[#15803d]' : 'text-brand-700' }}">ইমেইল {{ $user->email_verified_at ? '✓' : '✗' }}</p>
                         </td>
                         <td>
                             @if ($user->is_active)
-                                <span class="badge bg-emerald-50 text-emerald-700">সক্রিয়</span>
+                                <span class="badge bg-[#edf5ee] text-[#15803d]">সক্রিয়</span>
                             @else
-                                <span class="badge bg-rose-50 text-rose-700">নিষ্ক্রিয়</span>
+                                <span class="badge bg-brand-50 text-brand-700">নিষ্ক্রিয়</span>
                             @endif
                         </td>
-                        <td class="whitespace-nowrap text-xs text-slate-500">{{ $user->created_at?->format('d M Y') }}</td>
+                        <td class="whitespace-nowrap text-xs text-ink-muted">{{ $user->created_at?->format('d M Y') }}</td>
                         <td>
                             <div class="flex justify-end">
                                 <a href="{{ route('admin.users.edit', $user) }}" class="btn-secondary btn-sm">এডিট</a>
@@ -90,7 +90,7 @@
                         </td>
                     </tr>
                 @empty
-                    <tr><td colspan="8" class="py-10 text-center text-sm text-slate-500">কোনো ইউজার পাওয়া যায়নি।</td></tr>
+                    <tr><td colspan="8" class="py-10 text-center text-sm text-ink-muted">কোনো ইউজার পাওয়া যায়নি।</td></tr>
                 @endforelse
             </tbody>
         </table>

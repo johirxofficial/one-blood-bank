@@ -4,14 +4,14 @@
     $rating = (float) $rating;
 @endphp
 
-<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-1 text-sm']) }}>
-    <span class="text-amber-500" aria-hidden="true">
+<span {{ $attributes->merge(['class' => 'inline-flex items-center gap-1 text-xs']) }}>
+    <span class="text-brand-700" aria-hidden="true">
         @for ($i = 1; $i <= 5; $i++)
-            <span class="{{ $i <= round($rating) ? 'opacity-100' : 'opacity-25' }}">★</span>
+            <span class="{{ $i <= round($rating) ? 'opacity-100' : 'opacity-20' }}">★</span>
         @endfor
     </span>
-    <span class="font-semibold text-slate-700">{{ number_format($rating, 1) }}</span>
+    <span class="tnum font-medium text-ink-soft">{{ number_format($rating, 1) }}</span>
     @if ($showCount)
-        <span class="text-xs text-slate-500">({{ $count }})</span>
+        <span class="tnum text-ink-muted">({{ $count }})</span>
     @endif
 </span>

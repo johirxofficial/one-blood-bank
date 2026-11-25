@@ -8,10 +8,10 @@
 @section('heading', $isEdit ? 'পেজ এডিট' : 'নতুন পেজ')
 
 @section('content')
-    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-ink-muted">
         <a href="{{ route('admin.pages.index') }}" class="hover:text-brand-700">স্ট্যাটিক পেজ</a>
         <span>/</span>
-        <span class="text-slate-700">{{ $isEdit ? $page->title : 'নতুন' }}</span>
+        <span class="text-ink-soft">{{ $isEdit ? $page->title : 'নতুন' }}</span>
     </nav>
 
     <form method="POST" action="{{ $isEdit ? route('admin.pages.update', $page) : route('admin.pages.store') }}"
@@ -50,19 +50,19 @@
             </div>
 
             <div class="sm:col-span-2">
-                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                <label class="flex cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3">
                     <input type="hidden" name="is_published" value="0">
-                    <input type="checkbox" name="is_published" value="1" class="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                    <input type="checkbox" name="is_published" value="1" class="h-4 w-4 rounded border-line text-brand-600 focus:ring-brand-500"
                            @checked((string) old('is_published', $page->is_published ? '1' : '0') === '1')>
                     <span>
-                        <span class="block text-sm font-medium text-slate-800">পেজ প্রকাশ করুন</span>
-                        <span class="block text-xs text-slate-500">আনচেক থাকলে পেজটি পাবলিকভাবে দেখা যাবে না।</span>
+                        <span class="block text-sm font-medium text-ink">পেজ প্রকাশ করুন</span>
+                        <span class="block text-xs text-ink-muted">আনচেক থাকলে পেজটি পাবলিকভাবে দেখা যাবে না।</span>
                     </span>
                 </label>
             </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
+        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-line pt-4">
             <a href="{{ route('admin.pages.index') }}" class="btn-ghost">বাতিল</a>
             <button type="submit" class="btn-primary">{{ $isEdit ? 'পরিবর্তন সংরক্ষণ করুন' : 'পেজ তৈরি করুন' }}</button>
         </div>

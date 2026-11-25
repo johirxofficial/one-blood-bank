@@ -3,11 +3,11 @@
 @php
     $sizes = [
         'sm' => 'h-8 w-9 text-sm',
-        'md' => 'h-11 w-12 text-base',
-        'lg' => 'h-16 w-16 text-2xl',
+        'md' => 'h-10 w-11 text-sm',
+        'lg' => 'h-14 w-14 text-xl',
     ];
 @endphp
 
-<span {{ $attributes->merge(['class' => 'inline-grid place-items-center rounded-xl bg-brand-50 font-extrabold text-brand-700 ring-1 ring-inset ring-brand-100 '.($sizes[$size] ?? $sizes['md'])]) }}>
+<span {{ $attributes->merge(['class' => 'tnum inline-grid place-items-center rounded-lg border border-brand-200 bg-brand-50 font-medium text-brand-700 '.($sizes[$size] ?? $sizes['md'])]) }}>
     {{ $group }}
 </span>

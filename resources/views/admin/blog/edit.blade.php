@@ -7,8 +7,8 @@
     <div class="mx-auto max-w-4xl">
         <div class="flex flex-wrap items-center justify-between gap-3">
             <div>
-                <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">পোস্ট এডিট</h2>
-                <p class="mt-1 text-sm text-slate-600">{{ $post->title }}</p>
+                <h2 class="text-2xl font-semibold tracking-tight text-ink">পোস্ট এডিট</h2>
+                <p class="mt-1 text-sm text-ink-soft">{{ $post->title }}</p>
             </div>
             <div class="flex gap-2">
                 @if ($post->is_published)

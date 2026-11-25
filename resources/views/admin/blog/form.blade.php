@@ -42,7 +42,7 @@
                 <div>
                     <label class="label" for="cover">কভার ছবি</label>
                     @if ($post->coverUrl())
-                        <img src="{{ $post->coverUrl() }}" alt="" class="mb-2 h-24 w-full max-w-xs rounded-xl object-cover ring-1 ring-slate-200">
+                        <img src="{{ $post->coverUrl() }}" alt="" class="mb-2 h-24 w-full max-w-xs rounded-xl object-cover ring-1 ring-line">
                     @endif
                     <input type="file" name="cover" id="cover" accept="image/jpeg,image/png,image/webp" class="input py-2">
                     <p class="help">JPG, PNG, WebP — সর্বোচ্চ ৩ MB।</p>
@@ -55,19 +55,19 @@
                 </div>
             </div>
 
-            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                 <input type="hidden" name="is_published" value="0">
-                <input type="checkbox" name="is_published" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked(old('is_published', $post->is_published))>
+                <input type="checkbox" name="is_published" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked(old('is_published', $post->is_published))>
                 <span>
-                    <span class="block text-sm font-medium text-slate-800">এখনই প্রকাশ করুন</span>
-                    <span class="block text-xs text-slate-500">বন্ধ থাকলে পোস্টটি খসড়া হিসেবে সংরক্ষিত হবে।</span>
+                    <span class="block text-sm font-medium text-ink">এখনই প্রকাশ করুন</span>
+                    <span class="block text-xs text-ink-muted">বন্ধ থাকলে পোস্টটি খসড়া হিসেবে সংরক্ষিত হবে।</span>
                 </span>
             </label>
         </div>
     </div>
 
     <div class="card p-5 sm:p-6">
-        <h3 class="text-base font-bold text-slate-900">SEO</h3>
+        <h3 class="text-base font-semibold text-ink">SEO</h3>
         <div class="mt-4 space-y-4">
             <div>
                 <label class="label" for="meta_title">মেটা টাইটেল</label>

@@ -6,8 +6,8 @@
 @section('content')
     <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">রেটিং ও রিভিউ মডারেশন</h2>
-            <p class="mt-1 text-sm text-slate-600">মোট {{ number_format($ratings->total()) }} টি রিভিউ। অপ্রকাশিত বা অপমানজনক রিভিউ লুকিয়ে রাখুন।</p>
+            <h2 class="text-2xl font-semibold tracking-tight text-ink">রেটিং ও রিভিউ মডারেশন</h2>
+            <p class="mt-1 text-sm text-ink-soft">মোট {{ number_format($ratings->total()) }} টি রিভিউ। অপ্রকাশিত বা অপমানজনক রিভিউ লুকিয়ে রাখুন।</p>
         </div>
     </div>
 
@@ -30,33 +30,33 @@
             <article class="card p-5">
                 <div class="flex flex-wrap items-start justify-between gap-3">
                     <div class="min-w-0">
-                        <p class="text-sm font-semibold text-slate-900">
+                        <p class="text-sm font-semibold text-ink">
                             {{ $rating->donor?->user?->name ?? 'ডোনার' }}
-                            <span class="font-normal text-slate-400">কে</span>
+                            <span class="font-normal text-ink-muted">কে</span>
                             {{ $rating->user?->name ?? 'ইউজার' }}
-                            <span class="font-normal text-slate-400">রেটিং দিয়েছেন</span>
+                            <span class="font-normal text-ink-muted">রেটিং দিয়েছেন</span>
                         </p>
-                        <p class="mt-0.5 text-xs text-slate-500">
+                        <p class="mt-0.5 text-xs text-ink-muted">
                             রক্তের গ্রুপ {{ $rating->donor?->blood_group ?? '—' }} ·
                             {{ $rating->created_at->format('d M Y, h:i A') }} ·
                             {{ $rating->created_at->diffForHumans() }}
                         </p>
                     </div>
                     <div class="flex items-center gap-2">
-                        <span class="text-lg text-amber-500">{{ str_repeat('★', (int) $rating->rating) }}<span class="text-slate-200">{{ str_repeat('★', 5 - (int) $rating->rating) }}</span></span>
-                        <span class="badge {{ $rating->status === \App\Enums\ReviewStatus::Published ? 'bg-emerald-50 text-emerald-700' : ($rating->status === \App\Enums\ReviewStatus::Pending ? 'bg-amber-50 text-amber-700' : 'bg-slate-200 text-slate-600') }}">
+                        <span class="text-lg text-brand-700">{{ str_repeat('★', (int) $rating->rating) }}<span class="text-ink-muted/30">{{ str_repeat('★', 5 - (int) $rating->rating) }}</span></span>
+                        <span class="badge {{ $rating->status === \App\Enums\ReviewStatus::Published ? 'bg-[#edf5ee] text-[#15803d]' : ($rating->status === \App\Enums\ReviewStatus::Pending ? 'bg-[#f8efd9] text-[#8a5a12]' : 'bg-raised text-ink-soft') }}">
                             {{ $rating->status->label() }}
                         </span>
                     </div>
                 </div>
 
                 @if ($rating->comment)
-                    <p class="mt-3 rounded-xl bg-slate-50 px-4 py-3 text-sm leading-relaxed text-slate-700">{{ $rating->comment }}</p>
+                    <p class="mt-3 rounded-xl bg-raised/60 px-4 py-3 text-sm leading-relaxed text-ink-soft">{{ $rating->comment }}</p>
                 @else
-                    <p class="mt-3 text-sm italic text-slate-400">কোনো মন্তব্য নেই।</p>
+                    <p class="mt-3 text-sm italic text-ink-muted">কোনো মন্তব্য নেই।</p>
                 @endif
 
-                <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-slate-100 pt-3">
+                <div class="mt-4 flex flex-wrap items-center justify-between gap-3 border-t border-line pt-3">
                     <form method="POST" action="{{ route('admin.ratings.update', $rating) }}" class="flex flex-wrap items-end gap-2">
                         @csrf
                         @method('PUT')
@@ -79,16 +79,18 @@
                               onsubmit="return confirm('এই রিভিউ স্থায়ীভাবে মুছে ফেলতে চান?')">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn-ghost btn-sm text-rose-600 hover:bg-rose-50">মুছুন</button>
+                            <button type="submit" class="btn-ghost btn-sm text-brand-700 hover:bg-brand-50">মুছুন</button>
                         </form>
                     </div>
                 </div>
             </article>
         @empty
             <div class="card p-10 text-center">
-                <p class="text-4xl">⭐</p>
-                <p class="mt-3 text-sm font-semibold text-slate-700">কোনো রিভিউ পাওয়া যায়নি</p>
-                <p class="mt-1 text-xs text-slate-500">ফিল্টার পরিবর্তন করে আবার দেখুন।</p>
+                <svg class="mx-auto h-6 w-6 text-ink-muted" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true">
+                    <path d="m12 3.8 2.5 5.1 5.6.8-4 3.9.9 5.6-5-2.6-5 2.6.9-5.6-4-3.9 5.6-.8L12 3.8Z" stroke-linejoin="round"/>
+                </svg>
+                <p class="mt-3 text-sm font-medium text-ink-soft">কোনো রিভিউ পাওয়া যায়নি</p>
+                <p class="mt-1 text-xs text-ink-muted">ফিল্টার পরিবর্তন করে আবার দেখুন।</p>
             </div>
         @endforelse
     </div>

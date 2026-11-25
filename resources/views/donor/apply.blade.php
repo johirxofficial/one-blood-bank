@@ -11,10 +11,10 @@
     <div class="mx-auto max-w-4xl">
         <div class="flex flex-wrap items-end justify-between gap-3">
             <div>
-                <h1 class="text-2xl font-extrabold tracking-tight text-slate-900 sm:text-3xl">
+                <h1 class="text-2xl font-semibold tracking-tight text-ink sm:text-3xl">
                     {{ $editing ? 'ডোনার তথ্য আপডেট' : 'ডোনার হতে আবেদন করুন' }}
                 </h1>
-                <p class="mt-1 text-sm text-slate-600">
+                <p class="mt-1 text-sm text-ink-soft">
                     যাচাইয়ের পর আপনার প্রোফাইল ভেরিফাইড ডোনার লিস্টে দেখা যাবে।
                 </p>
             </div>
@@ -24,11 +24,11 @@
         </div>
 
         @if ($isApproved)
-            <div class="mt-4 rounded-xl border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-900">
+            <div class="mt-4 rounded-xl border border-[#cfe4d4] bg-[#edf5ee] px-4 py-3 text-sm text-[#166534]">
                 আপনি ভেরিফাইড ডোনার। ঠিকানা বা অন্যান্য তথ্য আপডেট করলে ভেরিফিকেশন বাতিল হবে না।
             </div>
         @elseif ($editing)
-            <div class="mt-4 rounded-xl border border-amber-200 bg-amber-50 px-4 py-3 text-sm text-amber-900">
+            <div class="mt-4 rounded-xl border border-[#e5d3a8] bg-[#f8efd9] px-4 py-3 text-sm text-[#6b4e16]">
                 আপনার আবেদন অপেক্ষমাণ। তথ্য পরিবর্তন করলে আবেদনটি আবার যাচাইয়ের জন্য যাবে।
             </div>
         @endif
@@ -38,11 +38,11 @@
 
             {{-- Personal --}}
             <div class="card p-5 sm:p-7">
-                <h2 class="text-base font-bold text-slate-900">ব্যক্তিগত তথ্য</h2>
+                <h2 class="text-base font-semibold text-ink">ব্যক্তিগত তথ্য</h2>
 
                 <div class="mt-4 grid gap-4 sm:grid-cols-2">
                     <div class="sm:col-span-2 flex items-center gap-4">
-                        <img src="{{ auth()->user()->avatarUrl() }}" alt="" class="h-16 w-16 rounded-xl object-cover ring-1 ring-slate-200">
+                        <img src="{{ auth()->user()->avatarUrl() }}" alt="" class="h-16 w-16 rounded-xl object-cover ring-1 ring-line">
                         <div class="flex-1">
                             <label class="label" for="photo">প্রোফাইল ছবি (ঐচ্ছিক)</label>
                             <input type="file" name="photo" id="photo" accept="image/*" class="input py-2">
@@ -99,9 +99,9 @@
             <div class="card p-5 sm:p-7" data-contact-repeater>
                 <div class="flex flex-wrap items-start justify-between gap-3">
                     <div>
-                        <h2 class="text-base font-bold text-slate-900">অতিরিক্ত যোগাযোগ নম্বর</h2>
-                        <p class="mt-1 text-xs text-slate-500">
-                            আপনার প্রধান নম্বর <span class="font-semibold text-slate-700">{{ auth()->user()->phone }}</span> ইতিমধ্যে সংরক্ষিত আছে।
+                        <h2 class="text-base font-semibold text-ink">অতিরিক্ত যোগাযোগ নম্বর</h2>
+                        <p class="mt-1 text-xs text-ink-muted">
+                            আপনার প্রধান নম্বর <span class="font-semibold text-ink-soft">{{ auth()->user()->phone }}</span> ইতিমধ্যে সংরক্ষিত আছে।
                             প্রয়োজনে আরও ৫টি পর্যন্ত নম্বর যোগ করুন — রোগীরা সহজে যোগাযোগ করতে পারবে।
                         </p>
                     </div>
@@ -109,7 +109,7 @@
                 </div>
 
                 @error('contacts')
-                    <p class="mt-3 rounded-lg bg-rose-50 px-3 py-2 text-xs font-medium text-rose-700">{{ $message }}</p>
+                    <p class="mt-3 rounded-lg bg-brand-50 px-3 py-2 text-xs font-medium text-brand-700">{{ $message }}</p>
                 @enderror
 
                 <div class="mt-4 space-y-3" data-contact-rows>
@@ -135,15 +135,15 @@
                             <div>
                                 <label class="label" for="contact-phone-{{ $index }}">নম্বর</label>
                                 <input type="tel" name="contacts[{{ $index }}][phone]" id="contact-phone-{{ $index }}"
-                                       class="input @error('contacts.'.$index.'.phone') border-rose-300 @enderror"
+                                       class="input @error('contacts.'.$index.'.phone') border-brand-300 @enderror"
                                        maxlength="30" value="{{ $contact['phone'] ?? '' }}" placeholder="+8801712345678">
                                 @error('contacts.'.$index.'.phone')
-                                    <p class="help text-rose-600">{{ $message }}</p>
+                                    <p class="help text-brand-700">{{ $message }}</p>
                                 @enderror
                             </div>
                             <div class="sm:pt-6">
                                 <button type="button" data-remove-contact
-                                        class="btn-ghost w-full px-3 py-2 text-xs text-rose-600 hover:bg-rose-50 sm:w-auto">
+                                        class="btn-ghost w-full px-3 py-2 text-xs text-brand-700 hover:bg-brand-50 sm:w-auto">
                                     ✕ সরান
                                 </button>
                             </div>
@@ -165,20 +165,20 @@
                         </div>
                         <div class="sm:pt-6">
                             <button type="button" data-remove-contact
-                                    class="btn-ghost w-full px-3 py-2 text-xs text-rose-600 hover:bg-rose-50 sm:w-auto">
+                                    class="btn-ghost w-full px-3 py-2 text-xs text-brand-700 hover:bg-brand-50 sm:w-auto">
                                 ✕ সরান
                             </button>
                         </div>
                     </div>
                 </template>
 
-                <p class="mt-3 text-[11px] text-slate-500">একই নম্বর একাধিকবার যোগ করা যাবে না। ইমেইল/ফোন ভেরিফিকেশনের জন্য ব্যবহৃত নম্বরটিই প্রধান নম্বর।</p>
+                <p class="mt-3 text-[11px] text-ink-muted">একই নম্বর একাধিকবার যোগ করা যাবে না। ইমেইল/ফোন ভেরিফিকেশনের জন্য ব্যবহৃত নম্বরটিই প্রধান নম্বর।</p>
             </div>
 
             {{-- Location --}}
             <div class="card p-5 sm:p-7">
-                <h2 class="text-base font-bold text-slate-900">ঠিকানা</h2>
-                <p class="mt-1 text-xs text-slate-500">বাংলাদেশসহ যেকোনো দেশের জন্য প্রযোজ্য। সঠিক এলাকা দিলে কাছের রোগীরা আপনাকে সহজে খুঁজে পাবে।</p>
+                <h2 class="text-base font-semibold text-ink">ঠিকানা</h2>
+                <p class="mt-1 text-xs text-ink-muted">বাংলাদেশসহ যেকোনো দেশের জন্য প্রযোজ্য। সঠিক এলাকা দিলে কাছের রোগীরা আপনাকে সহজে খুঁজে পাবে।</p>
 
                 @php
                     $selectedCountry = old('country', $donor?->country ?: \App\Models\Setting::get('site.country', 'Bangladesh'));
@@ -205,9 +205,9 @@
                     </div>
                 </div>
 
-                <details class="mt-5 rounded-xl border border-slate-200 bg-slate-50/60 p-4" {{ filled($donor?->division_id) || ! filled($donor?->state) ? 'open' : '' }}>
-                    <summary class="cursor-pointer text-sm font-semibold text-slate-800">বাংলাদেশের বিস্তারিত ঠিকানা (ঐচ্ছিক)</summary>
-                    <p class="mt-1 text-xs text-slate-500">আপনি বাংলাদেশে থাকলে বিভাগ, জেলা, উপজেলা ও ইউনিয়ন নির্বাচন করুন।</p>
+                <details class="mt-5 rounded-xl border border-line bg-raised/60 p-4" {{ filled($donor?->division_id) || ! filled($donor?->state) ? 'open' : '' }}>
+                    <summary class="cursor-pointer text-sm font-semibold text-ink">বাংলাদেশের বিস্তারিত ঠিকানা (ঐচ্ছিক)</summary>
+                    <p class="mt-1 text-xs text-ink-muted">আপনি বাংলাদেশে থাকলে বিভাগ, জেলা, উপজেলা ও ইউনিয়ন নির্বাচন করুন।</p>
                     <div class="mt-4">
                         <x-location-selects
                             :divisions="$divisions"
@@ -240,7 +240,7 @@
             </div>
 
             <div class="card flex flex-wrap items-center justify-between gap-3 p-5">
-                <p class="text-xs leading-relaxed text-slate-500">
+                <p class="text-xs leading-relaxed text-ink-muted">
                     আবেদন করলে আপনি নিশ্চিত করছেন যে তথ্যগুলো সত্য এবং আপনি স্বেচ্ছায় রক্তদানে সম্মত।
                 </p>
                 <button type="submit" class="btn-primary px-6 py-3">

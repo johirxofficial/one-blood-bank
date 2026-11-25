@@ -8,10 +8,10 @@
 @section('heading', $isEdit ? 'বিজ্ঞাপন এডিট' : 'নতুন বিজ্ঞাপন')
 
 @section('content')
-    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-ink-muted">
         <a href="{{ route('admin.ads.index') }}" class="hover:text-brand-700">বিজ্ঞাপন</a>
         <span>/</span>
-        <span class="text-slate-700">{{ $isEdit ? $ad->title : 'নতুন' }}</span>
+        <span class="text-ink-soft">{{ $isEdit ? $ad->title : 'নতুন' }}</span>
     </nav>
 
     <form method="POST" enctype="multipart/form-data"
@@ -56,9 +56,9 @@
             <div class="sm:col-span-2">
                 <label class="label" for="image">ব্যানার ছবি</label>
                 @if ($ad->image_path)
-                    <img src="{{ asset('storage/'.$ad->image_path) }}" alt="{{ $ad->title }}" class="mb-2 h-24 rounded-xl ring-1 ring-slate-200">
+                    <img src="{{ asset('storage/'.$ad->image_path) }}" alt="{{ $ad->title }}" class="mb-2 h-24 rounded-xl ring-1 ring-line">
                 @endif
-                <input type="file" name="image" id="image" class="input file:mr-3 file:rounded-lg file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-slate-700"
+                <input type="file" name="image" id="image" class="input file:mr-3 file:rounded-lg file:border-0 file:bg-raised file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-ink-soft"
                        accept=".jpg,.jpeg,.png,.webp,.gif">
                 <p class="help">JPG, PNG, WebP বা GIF — সর্বোচ্চ ২ মেগাবাইট।</p>
             </div>
@@ -89,16 +89,16 @@
             </div>
 
             <div class="flex items-end">
-                <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3">
                     <input type="hidden" name="is_active" value="0">
-                    <input type="checkbox" name="is_active" value="1" class="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                    <input type="checkbox" name="is_active" value="1" class="h-4 w-4 rounded border-line text-brand-600 focus:ring-brand-500"
                            @checked((string) old('is_active', $ad->is_active ? '1' : '0') === '1')>
-                    <span class="text-sm font-medium text-slate-800">বিজ্ঞাপন সক্রিয়</span>
+                    <span class="text-sm font-medium text-ink">বিজ্ঞাপন সক্রিয়</span>
                 </label>
             </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
+        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-line pt-4">
             <a href="{{ route('admin.ads.index') }}" class="btn-ghost">বাতিল</a>
             <button type="submit" class="btn-primary">{{ $isEdit ? 'পরিবর্তন সংরক্ষণ করুন' : 'বিজ্ঞাপন যোগ করুন' }}</button>
         </div>

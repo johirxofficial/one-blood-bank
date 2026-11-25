@@ -5,7 +5,7 @@
 @section('content')
     <div class="mx-auto max-w-lg">
         <div class="card p-6 sm:p-8">
-            <h1 class="text-xl font-extrabold text-slate-900">নতুন পাসওয়ার্ড সেট করুন</h1>
+            <h1 class="text-xl font-semibold text-ink">নতুন পাসওয়ার্ড সেট করুন</h1>
 
             <form method="POST" action="{{ route('password.store') }}" class="mt-5 space-y-4">
                 @csrf

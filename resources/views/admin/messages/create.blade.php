@@ -4,10 +4,10 @@
 @section('heading', 'নতুন বার্তা')
 
 @section('content')
-    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-ink-muted">
         <a href="{{ route('admin.messages.index') }}" class="hover:text-brand-700">বার্তা</a>
         <span>/</span>
-        <span class="text-slate-700">নতুন</span>
+        <span class="text-ink-soft">নতুন</span>
     </nav>
 
     <form method="POST" action="{{ route('admin.messages.store') }}" class="card mt-4 max-w-3xl p-5 sm:p-6">
@@ -61,7 +61,7 @@
             <p class="mt-1">বর্তমানে মেইলার <span class="font-mono">{{ config('mail.default') }}</span> ড্রাইভারে চলছে। লোকাল পরিবেশে মেইল <span class="font-mono">storage/logs/laravel.log</span>-এ জমা হবে। সর্বোচ্চ ৫০০ জন প্রাপককে একবারে পাঠানো যাবে।</p>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
+        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-line pt-4">
             <a href="{{ route('admin.messages.index') }}" class="btn-ghost">বাতিল</a>
             <button type="submit" class="btn-primary">বার্তা পাঠান</button>
         </div>

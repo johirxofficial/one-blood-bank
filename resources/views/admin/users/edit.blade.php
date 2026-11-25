@@ -4,10 +4,10 @@
 @section('heading', 'ইউজার এডিট')
 
 @section('content')
-    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-ink-muted">
         <a href="{{ route('admin.users.index') }}" class="hover:text-brand-700">ইউজার</a>
         <span>/</span>
-        <span class="text-slate-700">{{ $user->name }}</span>
+        <span class="text-ink-soft">{{ $user->name }}</span>
     </nav>
 
     <div class="mt-4 grid gap-6 xl:grid-cols-[minmax(0,1fr)_20rem]">
@@ -15,11 +15,11 @@
             @csrf
             @method('PUT')
 
-            <div class="flex items-center gap-3 border-b border-slate-100 pb-4">
+            <div class="flex items-center gap-3 border-b border-line pb-4">
                 <img src="{{ $user->avatarUrl() }}" alt="{{ $user->name }}" class="h-14 w-14 rounded-xl object-cover">
                 <div>
-                    <h2 class="text-lg font-bold text-slate-900">{{ $user->name }}</h2>
-                    <p class="text-xs text-slate-500">@ {{ $user->username }} · আইডি #{{ $user->id }}</p>
+                    <h2 class="text-lg font-semibold text-ink">{{ $user->name }}</h2>
+                    <p class="text-xs text-ink-muted">@ {{ $user->username }} · আইডি #{{ $user->id }}</p>
                 </div>
             </div>
 
@@ -30,7 +30,7 @@
                 </div>
                 <div>
                     <label class="label" for="username">ইউজারনেম</label>
-                    <input type="text" id="username" class="input bg-slate-50" value="{{ $user->username }}" disabled>
+                    <input type="text" id="username" class="input bg-raised/60" value="{{ $user->username }}" disabled>
                     <p class="help">ইউজারনেম পরিবর্তন করা যায় না।</p>
                 </div>
                 <div>
@@ -50,13 +50,13 @@
                     </select>
                 </div>
                 <div class="flex items-end">
-                    <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                    <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3">
                         <input type="hidden" name="is_active" value="0">
-                        <input type="checkbox" name="is_active" value="1" class="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                        <input type="checkbox" name="is_active" value="1" class="h-4 w-4 rounded border-line text-brand-600 focus:ring-brand-500"
                                @checked((string) old('is_active', $user->is_active ? '1' : '0') === '1')>
                         <span>
-                            <span class="block text-sm font-medium text-slate-800">অ্যাকাউন্ট সক্রিয়</span>
-                            <span class="block text-xs text-slate-500">নিষ্ক্রিয় করলে ইউজার লগইন করতে পারবে না।</span>
+                            <span class="block text-sm font-medium text-ink">অ্যাকাউন্ট সক্রিয়</span>
+                            <span class="block text-xs text-ink-muted">নিষ্ক্রিয় করলে ইউজার লগইন করতে পারবে না।</span>
                         </span>
                     </label>
                 </div>
@@ -67,7 +67,7 @@
                 </div>
             </div>
 
-            <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
+            <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-line pt-4">
                 <a href="{{ route('admin.users.index') }}" class="btn-ghost">বাতিল</a>
                 <button type="submit" class="btn-primary">পরিবর্তন সংরক্ষণ করুন</button>
             </div>
@@ -75,39 +75,39 @@
 
         <aside class="space-y-6">
             <div class="card p-5">
-                <h3 class="text-base font-bold text-slate-900">অ্যাকাউন্ট সারসংক্ষেপ</h3>
-                <ul class="mt-3 space-y-2 text-sm text-slate-600">
+                <h3 class="text-base font-semibold text-ink">অ্যাকাউন্ট সারসংক্ষেপ</h3>
+                <ul class="mt-3 space-y-2 text-sm text-ink-soft">
                     <li class="flex items-center justify-between gap-2">
                         <span>মোবাইল ভেরিফাইড</span>
-                        <span class="font-semibold {{ $user->phone_verified_at ? 'text-emerald-600' : 'text-rose-600' }}">{{ $user->phone_verified_at ? '✓' : '✗' }}</span>
+                        <span class="font-semibold {{ $user->phone_verified_at ? 'text-[#15803d]' : 'text-brand-700' }}">{{ $user->phone_verified_at ? '✓' : '✗' }}</span>
                     </li>
                     <li class="flex items-center justify-between gap-2">
                         <span>ইমেইল ভেরিফাইড</span>
-                        <span class="font-semibold {{ $user->email_verified_at ? 'text-emerald-600' : 'text-rose-600' }}">{{ $user->email_verified_at ? '✓' : '✗' }}</span>
+                        <span class="font-semibold {{ $user->email_verified_at ? 'text-[#15803d]' : 'text-brand-700' }}">{{ $user->email_verified_at ? '✓' : '✗' }}</span>
                     </li>
                     <li class="flex items-center justify-between gap-2">
                         <span>শেষ লগইন</span>
-                        <span class="font-semibold text-slate-800">{{ $user->last_login_at?->format('d M Y, h:i A') ?? '—' }}</span>
+                        <span class="font-semibold text-ink">{{ $user->last_login_at?->format('d M Y, h:i A') ?? '—' }}</span>
                     </li>
                     <li class="flex items-center justify-between gap-2">
                         <span>যোগদান</span>
-                        <span class="font-semibold text-slate-800">{{ $user->created_at?->format('d M Y') }}</span>
+                        <span class="font-semibold text-ink">{{ $user->created_at?->format('d M Y') }}</span>
                     </li>
                     <li class="flex items-center justify-between gap-2">
                         <span>ডোনার প্রোফাইল</span>
                         @if ($user->donor)
                             <span class="badge {{ $user->donor->status->badgeClasses() }}">{{ $user->donor->status->label() }}</span>
                         @else
-                            <span class="text-slate-400">নেই</span>
+                            <span class="text-ink-muted">নেই</span>
                         @endif
                     </li>
                 </ul>
             </div>
 
             @if (! $user->is(auth()->user()))
-                <div class="card border-rose-200 p-5">
-                    <h3 class="text-base font-bold text-rose-700">ডেঞ্জার জোন</h3>
-                    <p class="mt-1 text-xs leading-relaxed text-slate-600">
+                <div class="card border-brand-200 p-5">
+                    <h3 class="text-base font-semibold text-brand-700">ডেঞ্জার জোন</h3>
+                    <p class="mt-1 text-xs leading-relaxed text-ink-soft">
                         ইউজার স্থায়ীভাবে মুছে ফেললে তার ডোনার প্রোফাইল ও সংশ্লিষ্ট তথ্যও মুছে যাবে।
                     </p>
                     <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="mt-3"

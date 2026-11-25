@@ -24,16 +24,16 @@
 @section('content')
     <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">সাইট সেটিংস</h2>
-            <p class="mt-1 text-sm text-slate-600">যেকোনো দেশে সাইটটি চালানোর জন্য সব প্রয়োজনীয় কনফিগারেশন এক জায়গায়।</p>
+            <h2 class="text-2xl font-semibold tracking-tight text-ink">সাইট সেটিংস</h2>
+            <p class="mt-1 text-sm text-ink-soft">যেকোনো দেশে সাইটটি চালানোর জন্য সব প্রয়োজনীয় কনফিগারেশন এক জায়গায়।</p>
         </div>
     </div>
 
     <div class="mt-5 overflow-x-auto">
-        <div class="flex min-w-max gap-1 rounded-2xl border border-slate-200 bg-white p-1.5 shadow-sm" role="tablist">
+        <div class="flex min-w-max gap-1 rounded-[14px] border border-line bg-surface p-1.5 shadow-sm" role="tablist">
             @foreach ($tabs as $key => $label)
                 <button type="button" data-settings-tab="{{ $key }}"
-                        class="settings-tab whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-slate-600 transition hover:bg-slate-100 {{ $activeTab === $key ? 'bg-brand-600 text-white hover:bg-brand-700' : '' }}">
+                        class="settings-tab whitespace-nowrap rounded-xl px-3.5 py-2 text-sm font-semibold text-ink-soft transition hover:bg-raised {{ $activeTab === $key ? 'bg-brand-600 text-white hover:bg-brand-700' : '' }}">
                     {{ $label }}
                 </button>
             @endforeach
@@ -49,8 +49,8 @@
         <section data-settings-panel="site" class="{{ $activeTab === 'site' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-2">
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">সাইট তথ্য</h3>
-                    <p class="text-xs text-slate-500">নাম, ট্যাগলাইন, যোগাযোগের তথ্য ও ডিফল্ট দেশ/কারেন্সি।</p>
+                    <h3 class="text-base font-semibold text-ink">সাইট তথ্য</h3>
+                    <p class="text-xs text-ink-muted">নাম, ট্যাগলাইন, যোগাযোগের তথ্য ও ডিফল্ট দেশ/কারেন্সি।</p>
 
                     <div class="mt-4 space-y-4">
                         <div>
@@ -87,32 +87,32 @@
                 </div>
 
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">হোমপেজ সেকশন</h3>
-                    <p class="text-xs text-slate-500">কোন সেকশনগুলো পাবলিক হোমপেজে দেখানো হবে।</p>
+                    <h3 class="text-base font-semibold text-ink">হোমপেজ সেকশন</h3>
+                    <p class="text-xs text-ink-muted">কোন সেকশনগুলো পাবলিক হোমপেজে দেখানো হবে।</p>
 
                     <div class="mt-4 space-y-2">
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="appearance[show_stats]" value="0">
-                            <input type="checkbox" name="appearance[show_stats]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('appearance.show_stats'))>
+                            <input type="checkbox" name="appearance[show_stats]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('appearance.show_stats'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">পরিসংখ্যান সেকশন</span>
-                                <span class="block text-xs text-slate-500">ডোনার, ইউজার ও রক্তদানের সংখ্যা।</span>
+                                <span class="block text-sm font-medium text-ink">পরিসংখ্যান সেকশন</span>
+                                <span class="block text-xs text-ink-muted">ডোনার, ইউজার ও রক্তদানের সংখ্যা।</span>
                             </span>
                         </label>
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="appearance[show_urgent_requests]" value="0">
-                            <input type="checkbox" name="appearance[show_urgent_requests]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('appearance.show_urgent_requests'))>
+                            <input type="checkbox" name="appearance[show_urgent_requests]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('appearance.show_urgent_requests'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">জরুরি অনুরোধ সেকশন</span>
-                                <span class="block text-xs text-slate-500">সাম্প্রতিক রক্তের অনুরোধগুলো।</span>
+                                <span class="block text-sm font-medium text-ink">জরুরি অনুরোধ সেকশন</span>
+                                <span class="block text-xs text-ink-muted">সাম্প্রতিক রক্তের অনুরোধগুলো।</span>
                             </span>
                         </label>
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="others[blog_enabled]" value="0">
-                            <input type="checkbox" name="others[blog_enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('others.blog_enabled'))>
+                            <input type="checkbox" name="others[blog_enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('others.blog_enabled'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">ব্লগ সেকশন চালু</span>
-                                <span class="block text-xs text-slate-500">পাবলিক মেনুতে ব্লগ লিংক দেখানো হবে।</span>
+                                <span class="block text-sm font-medium text-ink">ব্লগ সেকশন চালু</span>
+                                <span class="block text-xs text-ink-muted">পাবলিক মেনুতে ব্লগ লিংক দেখানো হবে।</span>
                             </span>
                         </label>
                     </div>
@@ -124,13 +124,13 @@
         <section data-settings-panel="appearance" class="{{ $activeTab === 'appearance' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-2">
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">ব্র্যান্ড ও লেআউট</h3>
+                    <h3 class="text-base font-semibold text-ink">ব্র্যান্ড ও লেআউট</h3>
                     <div class="mt-4 space-y-4">
                         <div class="grid gap-4 sm:grid-cols-2">
                             <div>
                                 <label class="label" for="appearance_primary_color">ব্র্যান্ড কালার <span class="text-brand-600">*</span></label>
                                 <div class="flex gap-2">
-                                    <input type="color" name="appearance[primary_color]" id="appearance_primary_color" class="h-11 w-14 cursor-pointer rounded-xl border border-slate-300 bg-white p-1" value="{{ $val('appearance.primary_color', '#D32F2F') }}" required>
+                                    <input type="color" name="appearance[primary_color]" id="appearance_primary_color" class="h-11 w-14 cursor-pointer rounded-xl border border-line bg-surface p-1" value="{{ $val('appearance.primary_color', '#D32F2F') }}" required>
                                     <input type="text" class="input font-mono" value="{{ $val('appearance.primary_color', '#D32F2F') }}" readonly aria-label="নির্বাচিত কালার">
                                 </div>
                             </div>
@@ -146,27 +146,31 @@
                 </div>
 
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">লোগো ও ফেভিকন</h3>
-                    <p class="text-xs text-slate-500">লোগো না দিলে ডিফল্ট রক্তবিন্দু আইকন দেখানো হবে।</p>
+                    <h3 class="text-base font-semibold text-ink">লোগো ও ফেভিকন</h3>
+                    <p class="text-xs text-ink-muted">লোগো না দিলে ডিফল্ট রক্তবিন্দু আইকন দেখানো হবে।</p>
                     <div class="mt-4 grid gap-5 sm:grid-cols-2">
                         <div>
                             <label class="label" for="logo">সাইট লোগো</label>
                             @if ($logo && \Illuminate\Support\Facades\Storage::disk('public')->exists($logo))
-                                <img src="{{ asset('storage/'.$logo) }}" alt="লোগো" class="mb-2 h-16 w-16 rounded-xl bg-slate-50 object-contain p-1 ring-1 ring-slate-200">
+                                <img src="{{ asset('storage/'.$logo) }}" alt="লোগো" class="mb-2 h-16 w-16 rounded-xl border border-line bg-raised/60 object-contain p-1">
                             @else
-                                <div class="mb-2 grid h-16 w-16 place-items-center rounded-xl bg-slate-50 text-2xl ring-1 ring-slate-200">🩸</div>
+                                <div class="mb-2 grid h-16 w-16 place-items-center rounded-xl border border-line bg-raised/60 text-ink-muted">
+                                    <svg class="h-6 w-6 text-brand-700" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M12 3.5c-2.4 3-6 7.1-6 10.25a6 6 0 0 0 12 0c0-3.15-3.6-7.25-6-10.25Z" stroke-linejoin="round"/></svg>
+                                </div>
                             @endif
-                            <input type="file" name="logo" id="logo" class="input file:mr-3 file:rounded-lg file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-slate-700" accept=".png,.jpg,.jpeg,.webp,.svg">
+                            <input type="file" name="logo" id="logo" class="input file:mr-3 file:rounded-lg file:border-0 file:bg-raised file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-ink-soft" accept=".png,.jpg,.jpeg,.webp,.svg">
                             <p class="help">PNG, JPG, WebP, SVG — সর্বোচ্চ ২ MB।</p>
                         </div>
                         <div>
                             <label class="label" for="favicon">ফেভিকন</label>
                             @if ($favicon && \Illuminate\Support\Facades\Storage::disk('public')->exists($favicon))
-                                <img src="{{ asset('storage/'.$favicon) }}" alt="ফেভিকন" class="mb-2 h-16 w-16 rounded-xl bg-slate-50 object-contain p-1 ring-1 ring-slate-200">
+                                <img src="{{ asset('storage/'.$favicon) }}" alt="ফেভিকন" class="mb-2 h-16 w-16 rounded-xl border border-line bg-raised/60 object-contain p-1">
                             @else
-                                <div class="mb-2 grid h-16 w-16 place-items-center rounded-xl bg-slate-50 text-2xl ring-1 ring-slate-200">🌐</div>
+                                <div class="mb-2 grid h-16 w-16 place-items-center rounded-xl border border-line bg-raised/60 text-ink-muted">
+                                    <svg class="h-6 w-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M3.5 12h17M12 3.5c2.4 2.3 3.6 5.1 3.6 8.5S14.4 18.2 12 20.5C9.6 18.2 8.4 15.4 8.4 12S9.6 5.8 12 3.5Z"/></svg>
+                                </div>
                             @endif
-                            <input type="file" name="favicon" id="favicon" class="input file:mr-3 file:rounded-lg file:border-0 file:bg-slate-100 file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-slate-700" accept=".png,.jpg,.jpeg,.webp,.svg,.ico">
+                            <input type="file" name="favicon" id="favicon" class="input file:mr-3 file:rounded-lg file:border-0 file:bg-raised file:px-3 file:py-1.5 file:text-sm file:font-semibold file:text-ink-soft" accept=".png,.jpg,.jpeg,.webp,.svg,.ico">
                             <p class="help">PNG, SVG বা ICO — সর্বোচ্চ ১ MB।</p>
                         </div>
                     </div>
@@ -177,7 +181,7 @@
         {{-- SEO --}}
         <section data-settings-panel="seo" class="{{ $activeTab === 'seo' ? '' : 'hidden' }}">
             <div class="card max-w-4xl p-5 sm:p-6">
-                <h3 class="text-base font-bold text-slate-900">সার্চ ইঞ্জিন অপটিমাইজেশন</h3>
+                <h3 class="text-base font-semibold text-ink">সার্চ ইঞ্জিন অপটিমাইজেশন</h3>
                 <div class="mt-4 space-y-4">
                     <div>
                         <label class="label" for="seo_title">SEO টাইটেল</label>
@@ -199,48 +203,48 @@
         <section data-settings-panel="security" class="{{ $activeTab === 'security' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-2">
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">ভেরিফিকেশন</h3>
-                    <p class="text-xs text-slate-500">মেইল ও মোবাইল ভেরিফিকেশন বাধ্যতামূলক বা ঐচ্ছিক করুন।</p>
+                    <h3 class="text-base font-semibold text-ink">ভেরিফিকেশন</h3>
+                    <p class="text-xs text-ink-muted">মেইল ও মোবাইল ভেরিফিকেশন বাধ্যতামূলক বা ঐচ্ছিক করুন।</p>
                     <div class="mt-4 space-y-2">
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="security[require_phone_verification]" value="0">
-                            <input type="checkbox" name="security[require_phone_verification]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('security.require_phone_verification'))>
+                            <input type="checkbox" name="security[require_phone_verification]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('security.require_phone_verification'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">মোবাইল OTP ভেরিফিকেশন বাধ্যতামূলক</span>
-                                <span class="block text-xs text-slate-500">বন্ধ থাকলে ইউজার OTP ছাড়াই ডোনার তালিকা দেখতে পারবে।</span>
+                                <span class="block text-sm font-medium text-ink">মোবাইল OTP ভেরিফিকেশন বাধ্যতামূলক</span>
+                                <span class="block text-xs text-ink-muted">বন্ধ থাকলে ইউজার OTP ছাড়াই ডোনার তালিকা দেখতে পারবে।</span>
                             </span>
                         </label>
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="security[require_email_verification]" value="0">
-                            <input type="checkbox" name="security[require_email_verification]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('security.require_email_verification'))>
+                            <input type="checkbox" name="security[require_email_verification]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('security.require_email_verification'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">ইমেইল ভেরিফিকেশন বাধ্যতামূলক</span>
-                                <span class="block text-xs text-slate-500">লিংক ক্লিক করে ইমেইল যাচাই করতে হবে।</span>
+                                <span class="block text-sm font-medium text-ink">ইমেইল ভেরিফিকেশন বাধ্যতামূলক</span>
+                                <span class="block text-xs text-ink-muted">লিংক ক্লিক করে ইমেইল যাচাই করতে হবে।</span>
                             </span>
                         </label>
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="security[allow_registration]" value="0">
-                            <input type="checkbox" name="security[allow_registration]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('security.allow_registration'))>
+                            <input type="checkbox" name="security[allow_registration]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('security.allow_registration'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">নতুন রেজিস্ট্রেশন চালু</span>
-                                <span class="block text-xs text-slate-500">বন্ধ করলে নতুন কেউ অ্যাকাউন্ট খুলতে পারবে না।</span>
+                                <span class="block text-sm font-medium text-ink">নতুন রেজিস্ট্রেশন চালু</span>
+                                <span class="block text-xs text-ink-muted">বন্ধ করলে নতুন কেউ অ্যাকাউন্ট খুলতে পারবে না।</span>
                             </span>
                         </label>
                     </div>
                 </div>
 
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">ডোনার তালিকা</h3>
+                    <h3 class="text-base font-semibold text-ink">ডোনার তালিকা</h3>
                     <div class="mt-4 space-y-2">
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="donors[require_login]" value="0">
-                            <input type="checkbox" name="donors[require_login]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('donors.require_login'))>
+                            <input type="checkbox" name="donors[require_login]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('donors.require_login'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">ডোনার দেখতে লগইন বাধ্যতামূলক</span>
-                                <span class="block text-xs text-slate-500">বন্ধ থাকলে গেস্টরাও তালিকা দেখতে পারবে (নম্বর লুকানো থাকবে)।</span>
+                                <span class="block text-sm font-medium text-ink">ডোনার দেখতে লগইন বাধ্যতামূলক</span>
+                                <span class="block text-xs text-ink-muted">বন্ধ থাকলে গেস্টরাও তালিকা দেখতে পারবে (নম্বর লুকানো থাকবে)।</span>
                             </span>
                         </label>
-                        <div class="rounded-xl border border-slate-200 px-4 py-3">
+                        <div class="rounded-xl border border-line px-4 py-3">
                             <label class="label" for="donors_daily_reveal_limit">দৈনিক নম্বর দেখার সীমা</label>
                             <input type="number" name="donors[daily_reveal_limit]" id="donors_daily_reveal_limit" class="input" min="0" max="100000" value="{{ $val('donors.daily_reveal_limit', 15) }}" required>
                             <p class="help"><strong>0</strong> দিলে আনলিমিটেড। উদাহরণ: 15 = প্রতিদিন সর্বোচ্চ ১৫টি নম্বর।</p>
@@ -254,8 +258,8 @@
         <section data-settings-panel="mail" class="{{ $activeTab === 'mail' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-3">
                 <div class="card p-5 sm:p-6 xl:col-span-2">
-                    <h3 class="text-base font-bold text-slate-900">মেইল / SMTP কনফিগারেশন</h3>
-                    <p class="mt-1 text-xs text-slate-500">cPanel বা যেকোনো SMTP প্রোভাইডারের তথ্য দিন। পাসওয়ার্ড খালি রাখলে আগেরটাই থাকবে।</p>
+                    <h3 class="text-base font-semibold text-ink">মেইল / SMTP কনফিগারেশন</h3>
+                    <p class="mt-1 text-xs text-ink-muted">cPanel বা যেকোনো SMTP প্রোভাইডারের তথ্য দিন। পাসওয়ার্ড খালি রাখলে আগেরটাই থাকবে।</p>
 
                     <div class="mt-4 grid gap-4 sm:grid-cols-2">
                         <div>
@@ -302,7 +306,7 @@
                 </div>
 
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">মেইল নোটিফিকেশন</h3>
+                    <h3 class="text-base font-semibold text-ink">মেইল নোটিফিকেশন</h3>
                     <div class="mt-4 space-y-2">
                         @foreach ([
                             'mail.welcome_enabled' => ['স্বাগতম মেইল', 'নতুন রেজিস্ট্রেশনে'],
@@ -310,12 +314,12 @@
                             'mail.status_enabled' => ['স্ট্যাটাস মেইল', 'অনুমোদন/বাতিলে'],
                             'mail.rating_enabled' => ['রিভিউ মেইল', 'নতুন রেটিং পেলে'],
                         ] as $key => $info)
-                            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                                 <input type="hidden" name="{{ str_replace('.', '[', $key).']' }}" value="0">
-                                <input type="checkbox" name="{{ str_replace('.', '[', $key).']' }}" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool($key))>
+                                <input type="checkbox" name="{{ str_replace('.', '[', $key).']' }}" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool($key))>
                                 <span>
-                                    <span class="block text-sm font-medium text-slate-800">{{ $info[0] }}</span>
-                                    <span class="block text-xs text-slate-500">{{ $info[1] }}</span>
+                                    <span class="block text-sm font-medium text-ink">{{ $info[0] }}</span>
+                                    <span class="block text-xs text-ink-muted">{{ $info[1] }}</span>
                                 </span>
                             </label>
                         @endforeach
@@ -328,8 +332,8 @@
         <section data-settings-panel="sms" class="{{ $activeTab === 'sms' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-3">
                 <div class="card p-5 sm:p-6 xl:col-span-2">
-                    <h3 class="text-base font-bold text-slate-900">SMS / OTP গেটওয়ে</h3>
-                    <p class="mt-1 text-xs text-slate-500">যেকোনো দেশের SMS গেটওয়ের জন্য URL-এ <code>{phone}</code>, <code>{message}</code>, <code>{api_key}</code>, <code>{sender_id}</code> ব্যবহার করুন।</p>
+                    <h3 class="text-base font-semibold text-ink">SMS / OTP গেটওয়ে</h3>
+                    <p class="mt-1 text-xs text-ink-muted">যেকোনো দেশের SMS গেটওয়ের জন্য URL-এ <code>{phone}</code>, <code>{message}</code>, <code>{api_key}</code>, <code>{sender_id}</code> ব্যবহার করুন।</p>
 
                     <div class="mt-4 grid gap-4 sm:grid-cols-2">
                         <div>
@@ -353,11 +357,11 @@
                         </div>
                         <div>
                             <label class="label" for="sms_enabled_help">SMS স্ট্যাটাস</label>
-                            <div class="rounded-xl border border-slate-200 px-4 py-3">
+                            <div class="rounded-xl border border-line px-4 py-3">
                                 <label class="flex cursor-pointer items-center gap-3">
                                     <input type="hidden" name="sms[enabled]" value="0">
-                                    <input type="checkbox" name="sms[enabled]" value="1" class="h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('sms.enabled'))>
-                                    <span class="text-sm font-medium text-slate-800">SMS পাঠানো চালু</span>
+                                    <input type="checkbox" name="sms[enabled]" value="1" class="h-4 w-4 rounded border-line text-brand-600" @checked($bool('sms.enabled'))>
+                                    <span class="text-sm font-medium text-ink">SMS পাঠানো চালু</span>
                                 </label>
                             </div>
                         </div>
@@ -370,8 +374,8 @@
                 </div>
 
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">লোকাল টেস্টিং</h3>
-                    <p class="mt-2 text-sm leading-relaxed text-slate-600">ড্রাইভার <strong>Log</strong> থাকলে OTP কোড <code>storage/logs/laravel.log</code>-এ লেখা হবে। প্রোডাকশনে HTTP গেটওয়ে সেট করলে আসল SMS যাবে।</p>
+                    <h3 class="text-base font-semibold text-ink">লোকাল টেস্টিং</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-ink-soft">ড্রাইভার <strong>Log</strong> থাকলে OTP কোড <code>storage/logs/laravel.log</code>-এ লেখা হবে। প্রোডাকশনে HTTP গেটওয়ে সেট করলে আসল SMS যাবে।</p>
                 </div>
             </div>
         </section>
@@ -379,18 +383,18 @@
         {{-- Donors --}}
         <section data-settings-panel="donors" class="{{ $activeTab === 'donors' ? '' : 'hidden' }}">
             <div class="card max-w-3xl p-5 sm:p-6">
-                <h3 class="text-base font-bold text-slate-900">ডোনার নীতি</h3>
+                <h3 class="text-base font-semibold text-ink">ডোনার নীতি</h3>
                 <div class="mt-4 space-y-2">
-                    <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                    <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                         <input type="hidden" name="donors[auto_approve]" value="0">
-                        <input type="checkbox" name="donors[auto_approve]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('donors.auto_approve'))>
+                        <input type="checkbox" name="donors[auto_approve]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('donors.auto_approve'))>
                         <span>
-                            <span class="block text-sm font-medium text-slate-800">ডোনার আবেদন স্বয়ংক্রিয় অনুমোদন</span>
-                            <span class="block text-xs text-slate-500">সতর্কতা: ম্যানুয়াল যাচাই ছাড়া প্রোফাইল পাবলিক হবে।</span>
+                            <span class="block text-sm font-medium text-ink">ডোনার আবেদন স্বয়ংক্রিয় অনুমোদন</span>
+                            <span class="block text-xs text-ink-muted">সতর্কতা: ম্যানুয়াল যাচাই ছাড়া প্রোফাইল পাবলিক হবে।</span>
                         </span>
                     </label>
                 </div>
-                <p class="mt-4 text-xs leading-relaxed text-slate-500">লগইন বাধ্যতামূলক ও দৈনিক নম্বর দেখার সীমা “নিরাপত্তা ও ভেরিফিকেশন” ট্যাবে আছে। 0 = আনলিমিটেড।</p>
+                <p class="mt-4 text-xs leading-relaxed text-ink-muted">লগইন বাধ্যতামূলক ও দৈনিক নম্বর দেখার সীমা “নিরাপত্তা ও ভেরিফিকেশন” ট্যাবে আছে। 0 = আনলিমিটেড।</p>
             </div>
         </section>
 
@@ -398,16 +402,16 @@
         <section data-settings-panel="donation" class="{{ $activeTab === 'donation' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-2">
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">সাইট ডোনেশন</h3>
-                    <p class="mt-1 text-xs text-slate-500">সাইটের খরচ চালাতে স্বেচ্ছা সহযোগিতা নেওয়ার অপশন।</p>
+                    <h3 class="text-base font-semibold text-ink">সাইট ডোনেশন</h3>
+                    <p class="mt-1 text-xs text-ink-muted">সাইটের খরচ চালাতে স্বেচ্ছা সহযোগিতা নেওয়ার অপশন।</p>
 
                     <div class="mt-4 space-y-4">
-                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                        <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                             <input type="hidden" name="donation[enabled]" value="0">
-                            <input type="checkbox" name="donation[enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('donation.enabled'))>
+                            <input type="checkbox" name="donation[enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('donation.enabled'))>
                             <span>
-                                <span class="block text-sm font-medium text-slate-800">ডোনেশন সিস্টেম চালু</span>
-                                <span class="block text-xs text-slate-500">পাবলিক সাইটে “সহযোগিতা করুন” পেজ দেখানো হবে।</span>
+                                <span class="block text-sm font-medium text-ink">ডোনেশন সিস্টেম চালু</span>
+                                <span class="block text-xs text-ink-muted">পাবলিক সাইটে “সহযোগিতা করুন” পেজ দেখানো হবে।</span>
                             </span>
                         </label>
                         <div class="grid gap-4 sm:grid-cols-2">
@@ -424,10 +428,10 @@
                                 <input type="number" name="donation[goal_amount]" id="donation_goal_amount" class="input" min="0" value="{{ $val('donation.goal_amount', 0) }}">
                             </div>
                             <div class="flex items-end">
-                                <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                                <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3">
                                     <input type="hidden" name="donation[show_goal]" value="0">
-                                    <input type="checkbox" name="donation[show_goal]" value="1" class="h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('donation.show_goal'))>
-                                    <span class="text-sm font-medium text-slate-800">লক্ষ্য প্রোগ্রেস দেখান</span>
+                                    <input type="checkbox" name="donation[show_goal]" value="1" class="h-4 w-4 rounded border-line text-brand-600" @checked($bool('donation.show_goal'))>
+                                    <span class="text-sm font-medium text-ink">লক্ষ্য প্রোগ্রেস দেখান</span>
                                 </label>
                             </div>
                         </div>
@@ -435,7 +439,7 @@
                 </div>
 
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">পেমেন্ট মাধ্যম</h3>
+                    <h3 class="text-base font-semibold text-ink">পেমেন্ট মাধ্যম</h3>
                     <div class="mt-4 space-y-4">
                         <div class="grid gap-4 sm:grid-cols-3">
                             <div>
@@ -471,22 +475,22 @@
         {{-- Ads --}}
         <section data-settings-panel="ads" class="{{ $activeTab === 'ads' ? '' : 'hidden' }}">
             <div class="card max-w-4xl p-5 sm:p-6">
-                <h3 class="text-base font-bold text-slate-900">বিজ্ঞাপন</h3>
+                <h3 class="text-base font-semibold text-ink">বিজ্ঞাপন</h3>
                 <div class="mt-4 space-y-2">
-                    <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                    <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                         <input type="hidden" name="ads[enabled]" value="0">
-                        <input type="checkbox" name="ads[enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('ads.enabled'))>
+                        <input type="checkbox" name="ads[enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('ads.enabled'))>
                         <span>
-                            <span class="block text-sm font-medium text-slate-800">সাইটে বিজ্ঞাপন চালু</span>
-                            <span class="block text-xs text-slate-500">ব্যানার ও অন্যান্য অ্যাড স্লট।</span>
+                            <span class="block text-sm font-medium text-ink">সাইটে বিজ্ঞাপন চালু</span>
+                            <span class="block text-xs text-ink-muted">ব্যানার ও অন্যান্য অ্যাড স্লট।</span>
                         </span>
                     </label>
-                    <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                    <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
                         <input type="hidden" name="ads[popunder_enabled]" value="0">
-                        <input type="checkbox" name="ads[popunder_enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-slate-300 text-brand-600" @checked($bool('ads.popunder_enabled'))>
+                        <input type="checkbox" name="ads[popunder_enabled]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('ads.popunder_enabled'))>
                         <span>
-                            <span class="block text-sm font-medium text-slate-800">পপআন্ডার চালু</span>
-                            <span class="block text-xs text-slate-500">নিচের কোড পাবলিক পেজে লোড হবে।</span>
+                            <span class="block text-sm font-medium text-ink">পপআন্ডার চালু</span>
+                            <span class="block text-xs text-ink-muted">নিচের কোড পাবলিক পেজে লোড হবে।</span>
                         </span>
                     </label>
                 </div>
@@ -501,7 +505,7 @@
         <section data-settings-panel="others" class="{{ $activeTab === 'others' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-2">
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">অন্যান্য</h3>
+                    <h3 class="text-base font-semibold text-ink">অন্যান্য</h3>
                     <div class="mt-4 space-y-4">
                         <div class="grid gap-4 sm:grid-cols-2">
                             <div>
@@ -542,15 +546,15 @@
                 </div>
 
                 <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-bold text-slate-900">তথ্য</h3>
-                    <p class="mt-2 text-sm leading-relaxed text-slate-600">সাইটটি বাংলাদেশের পাশাপাশি যেকোনো দেশে ব্যবহারের জন্য প্রস্তুত। ডোনার আবেদনে দেশ অনুযায়ী ঠিকানা নেওয়া হয়, আর SMS/মেইল/পেমেন্ট সবই অ্যাডমিন প্যানেল থেকে কনফিগার করা যায়।</p>
+                    <h3 class="text-base font-semibold text-ink">তথ্য</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-ink-soft">সাইটটি বাংলাদেশের পাশাপাশি যেকোনো দেশে ব্যবহারের জন্য প্রস্তুত। ডোনার আবেদনে দেশ অনুযায়ী ঠিকানা নেওয়া হয়, আর SMS/মেইল/পেমেন্ট সবই অ্যাডমিন প্যানেল থেকে কনফিগার করা যায়।</p>
                 </div>
 
                 <div class="card p-5 sm:p-6 xl:col-span-2">
-                    <h3 class="text-base font-bold text-slate-900">নতুন ভাষা ইমপোর্ট</h3>
-                    <p class="mt-2 text-sm leading-relaxed text-slate-600">
+                    <h3 class="text-base font-semibold text-ink">নতুন ভাষা ইমপোর্ট</h3>
+                    <p class="mt-2 text-sm leading-relaxed text-ink-soft">
                         সাইটের লেখাগুলো বাংলায় লেখা। অন্য ভাষায় দেখাতে চাইলে বাংলা টেক্সটকে কী-ধরে একটি JSON ডিকশনারি আপলোড করুন।
-                        ফরম্যাট: <code class="rounded bg-slate-100 px-1.5 py-0.5 text-xs">{"বাংলা টেক্সট": "Your translation"}</code>।
+                        ফরম্যাট: <code class="rounded bg-raised px-1.5 py-0.5 text-xs">{"বাংলা টেক্সট": "Your translation"}</code>।
                         ইমপোর্ট করলে ভাষাটি সাথে সাথে সক্রিয় হবে।
                     </p>
                     <div class="mt-4 grid gap-4 sm:grid-cols-2">
@@ -592,8 +596,8 @@
                     tab.classList.toggle('bg-brand-600', active);
                     tab.classList.toggle('text-white', active);
                     tab.classList.toggle('hover:bg-brand-700', active);
-                    tab.classList.toggle('text-slate-600', !active);
-                    tab.classList.toggle('hover:bg-slate-100', !active);
+                    tab.classList.toggle('text-ink-soft', !active);
+                    tab.classList.toggle('hover:bg-raised', !active);
                 });
 
                 panels.forEach((panel) => panel.classList.toggle('hidden', panel.dataset.settingsPanel !== key));

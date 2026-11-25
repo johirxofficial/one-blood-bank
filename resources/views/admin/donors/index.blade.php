@@ -6,8 +6,8 @@
 @section('content')
     <div class="flex flex-wrap items-end justify-between gap-3">
         <div>
-            <h2 class="text-2xl font-extrabold tracking-tight text-slate-900">ডোনার ম্যানেজমেন্ট</h2>
-            <p class="mt-1 text-sm text-slate-600">আবেদন যাচাই, অনুমোদন, বাতিল ও স্থগিত করুন। মোট {{ number_format($donors->total()) }} জন।</p>
+            <h2 class="text-2xl font-semibold tracking-tight text-ink">ডোনার ম্যানেজমেন্ট</h2>
+            <p class="mt-1 text-sm text-ink-soft">আবেদন যাচাই, অনুমোদন, বাতিল ও স্থগিত করুন। মোট {{ number_format($donors->total()) }} জন।</p>
         </div>
         <a href="{{ route('admin.donors.index', ['status' => 'pending']) }}" class="btn-primary">অপেক্ষমাণ আবেদন</a>
     </div>
@@ -50,25 +50,25 @@
                             <div class="flex items-center gap-3">
                                 <img src="{{ $donor->user->avatarUrl() }}" alt="{{ $donor->user->name }}" class="h-9 w-9 rounded-lg object-cover">
                                 <div class="min-w-0">
-                                    <p class="truncate font-semibold text-slate-900">{{ $donor->user->name }}</p>
-                                    <p class="truncate text-xs text-slate-500">@ {{ $donor->user->username }} · {{ $donor->user->phone }}</p>
+                                    <p class="truncate font-semibold text-ink">{{ $donor->user->name }}</p>
+                                    <p class="truncate text-xs text-ink-muted">@ {{ $donor->user->username }} · {{ $donor->user->phone }}</p>
                                 </div>
                             </div>
                         </td>
                         <td><span class="badge bg-brand-50 text-brand-700">{{ $donor->blood_group }}</span></td>
                         <td class="text-xs">
-                            <p class="font-medium text-slate-700">{{ $donor->locationLabel() ?: '—' }}</p>
-                            <p class="text-slate-500">{{ $donor->country ?: ($donor->district?->localizedName() ?? '—') }}</p>
+                            <p class="font-medium text-ink-soft">{{ $donor->locationLabel() ?: '—' }}</p>
+                            <p class="text-ink-muted">{{ $donor->country ?: ($donor->district?->localizedName() ?? '—') }}</p>
                         </td>
                         <td><span class="badge {{ $donor->status->badgeClasses() }}">{{ $donor->status->label() }}</span></td>
                         <td>
                             @if ($donor->is_available)
-                                <span class="badge bg-emerald-50 text-emerald-700">উপলব্ধ</span>
+                                <span class="badge bg-[#edf5ee] text-[#15803d]">উপলব্ধ</span>
                             @else
-                                <span class="badge bg-rose-50 text-rose-700" title="{{ $donor->available_from?->format('d M Y') }}">অনুপলব্ধ</span>
+                                <span class="badge bg-brand-50 text-brand-700" title="{{ $donor->available_from?->format('d M Y') }}">অনুপলব্ধ</span>
                             @endif
                         </td>
-                        <td class="text-xs text-slate-500">
+                        <td class="text-xs text-ink-muted">
                             {{ $donor->verified_at?->format('d M Y') ?? '—' }}
                         </td>
                         <td>
@@ -85,7 +85,7 @@
                     </tr>
                 @empty
                     <tr>
-                        <td colspan="7" class="py-10 text-center text-sm text-slate-500">কোনো ডোনার পাওয়া যায়নি।</td>
+                        <td colspan="7" class="py-10 text-center text-sm text-ink-muted">কোনো ডোনার পাওয়া যায়নি।</td>
                     </tr>
                 @endforelse
             </tbody>

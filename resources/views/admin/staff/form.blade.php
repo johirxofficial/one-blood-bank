@@ -8,10 +8,10 @@
 @section('heading', $isEdit ? 'স্টাফ এডিট' : 'নতুন স্টাফ')
 
 @section('content')
-    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-slate-500">
+    <nav class="flex flex-wrap items-center gap-1.5 text-xs text-ink-muted">
         <a href="{{ route('admin.staff.index') }}" class="hover:text-brand-700">স্টাফ</a>
         <span>/</span>
-        <span class="text-slate-700">{{ $isEdit ? $member->name : 'নতুন' }}</span>
+        <span class="text-ink-soft">{{ $isEdit ? $member->name : 'নতুন' }}</span>
     </nav>
 
     <form method="POST" action="{{ $isEdit ? route('admin.staff.update', $member) : route('admin.staff.store') }}"
@@ -51,11 +51,11 @@
                 <p class="help">শুধু অ্যাডমিন সেটিংস ও স্টাফ ম্যানেজমেন্ট করতে পারবে।</p>
             </div>
             <div class="flex items-end">
-                <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-slate-200 px-4 py-3">
+                <label class="flex w-full cursor-pointer items-center gap-3 rounded-xl border border-line px-4 py-3">
                     <input type="hidden" name="is_active" value="0">
-                    <input type="checkbox" name="is_active" value="1" class="h-4 w-4 rounded border-slate-300 text-brand-600 focus:ring-brand-500"
+                    <input type="checkbox" name="is_active" value="1" class="h-4 w-4 rounded border-line text-brand-600 focus:ring-brand-500"
                            @checked((string) old('is_active', ($member->is_active ?? true) ? '1' : '0') === '1')>
-                    <span class="text-sm font-medium text-slate-800">অ্যাকাউন্ট সক্রিয়</span>
+                    <span class="text-sm font-medium text-ink">অ্যাকাউন্ট সক্রিয়</span>
                 </label>
             </div>
 
@@ -73,7 +73,7 @@
             </div>
         </div>
 
-        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-slate-100 pt-4">
+        <div class="mt-6 flex flex-wrap justify-end gap-2 border-t border-line pt-4">
             <a href="{{ route('admin.staff.index') }}" class="btn-ghost">বাতিল</a>
             <button type="submit" class="btn-primary">{{ $isEdit ? 'পরিবর্তন সংরক্ষণ করুন' : 'স্টাফ তৈরি করুন' }}</button>
         </div>

@@ -1,24 +1,23 @@
 @php
     $types = [
-        'success' => ['bg' => 'bg-emerald-50 border-emerald-200 text-emerald-800', 'icon' => '✓'],
-        'warning' => ['bg' => 'bg-amber-50 border-amber-200 text-amber-900', 'icon' => '!'],
-        'error' => ['bg' => 'bg-rose-50 border-rose-200 text-rose-800', 'icon' => '×'],
-        'status' => ['bg' => 'bg-sky-50 border-sky-200 text-sky-800', 'icon' => 'i'],
+        'success' => 'border-l-[#15803d] bg-[#edf5ee] text-[#166534]',
+        'warning' => 'border-l-[#b45309] bg-[#f8efd9] text-[#6b4e16]',
+        'error' => 'border-l-brand-700 bg-brand-50 text-brand-800',
+        'status' => 'border-l-ink-muted bg-raised text-ink-soft',
     ];
 @endphp
 
 @foreach ($types as $key => $style)
     @if (session($key))
-        <div data-flash class="mb-4 flex items-start gap-3 rounded-xl border px-4 py-3 text-sm {{ $style['bg'] }}">
-            <span class="mt-0.5 grid h-5 w-5 shrink-0 place-items-center rounded-full bg-white/70 text-xs font-bold">{{ $style['icon'] }}</span>
-            <p class="flex-1 leading-relaxed">{{ session($key) }}</p>
+        <div data-flash class="mb-4 rounded-lg border border-line border-l-2 px-4 py-3 text-sm {{ $style }}">
+            <p class="leading-relaxed">{{ session($key) }}</p>
         </div>
     @endif
 @endforeach
 
 @if (isset($errors) && $errors->any())
-    <div class="mb-4 rounded-xl border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-800">
-        <p class="font-semibold">একটু দেখে নিন:</p>
+    <div class="mb-4 rounded-lg border border-line border-l-2 border-l-brand-700 bg-brand-50 px-4 py-3 text-sm text-brand-800">
+        <p class="font-medium">একটু দেখে নিন:</p>
         <ul class="mt-1 list-inside list-disc space-y-0.5">
             @foreach ($errors->all() as $error)
                 <li>{{ $error }}</li>
