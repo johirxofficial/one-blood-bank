@@ -89,9 +89,22 @@
         @apply h-8 rounded-lg px-3 text-xs;
     }
 
+    .btn,
+    .btn-primary,
+    .btn-secondary,
+    .btn-ghost,
+    .btn-danger {
+        border-radius: var(--radius-button, 10px);
+    }
+
+    .btn-sm {
+        border-radius: var(--radius-button-sm, 8px);
+    }
+
     .card,
     .stat-card {
         @apply rounded-[14px] border border-line bg-surface;
+        border-radius: var(--radius-card, 14px);
     }
 
     .card-hover {
@@ -100,6 +113,7 @@
 
     .input {
         @apply block w-full rounded-lg border border-line bg-surface px-3 py-2.5 text-sm text-ink transition-colors placeholder:text-ink-muted/70 focus:border-brand-600 focus:outline-none focus:ring-2 focus:ring-brand-600/15;
+        border-radius: var(--radius-input, 8px);
     }
 
     .input:-webkit-autofill,
@@ -121,10 +135,12 @@
 
     .badge {
         @apply inline-flex items-center gap-1 rounded-[5px] px-2 py-0.5 text-xs font-medium;
+        border-radius: var(--radius-badge, 5px);
     }
 
     .nav-link {
         @apply rounded-lg px-3 py-2 text-sm text-ink-soft transition-colors hover:bg-raised hover:text-ink;
+        border-radius: var(--radius-button-sm, 8px);
     }
 
     .nav-link-active {
@@ -133,6 +149,7 @@
 
     .table-wrap {
         @apply overflow-x-auto rounded-[14px] border border-line bg-surface;
+        border-radius: var(--radius-card, 14px);
     }
 
     .table {
@@ -203,4 +220,92 @@
     .rich-text :where(a) {
         @apply font-medium text-brand-700 underline underline-offset-2;
     }
+}
+
+/* Appearance presets selected from Settings → Brand & Layout. */
+body.radius-sharp {
+    --radius-card: 4px;
+    --radius-button: 4px;
+    --radius-button-sm: 4px;
+    --radius-input: 4px;
+    --radius-badge: 2px;
+}
+
+body.radius-soft {
+    --radius-card: 14px;
+    --radius-button: 10px;
+    --radius-button-sm: 8px;
+    --radius-input: 8px;
+    --radius-badge: 5px;
+}
+
+body.radius-round {
+    --radius-card: 20px;
+    --radius-button: 9999px;
+    --radius-button-sm: 9999px;
+    --radius-input: 12px;
+    --radius-badge: 8px;
+}
+
+body.btn-style-brand .btn-primary {
+    background-color: var(--color-brand-600);
+    color: #fff;
+}
+
+body.btn-style-brand .btn-primary:hover {
+    background-color: var(--color-brand-700);
+}
+
+body.btn-style-outline .btn-primary {
+    border: 1px solid var(--color-line);
+    background-color: transparent;
+    color: var(--color-ink);
+}
+
+body.btn-style-outline .btn-primary:hover {
+    background-color: var(--color-raised);
+}
+
+body.card-style-bordered .card,
+body.card-style-bordered .stat-card,
+body.card-style-bordered .table-wrap {
+    border-color: color-mix(in srgb, var(--color-line) 65%, var(--color-ink));
+}
+
+body.card-style-raised .card,
+body.card-style-raised .stat-card,
+body.card-style-raised .table-wrap {
+    box-shadow: 0 8px 24px rgba(31, 27, 22, 0.06);
+}
+
+body.spacing-compact main > section.mt-16 {
+    margin-top: 2.5rem;
+}
+
+body.spacing-compact main > section.mt-10 {
+    margin-top: 1.5rem;
+}
+
+body.spacing-relaxed main > section.mt-16 {
+    margin-top: 5rem;
+}
+
+body.spacing-relaxed main > section.mt-10 {
+    margin-top: 3rem;
+}
+
+body.spacing-compact footer {
+    margin-top: 3rem;
+}
+
+body.spacing-relaxed footer {
+    margin-top: 6rem;
+}
+
+body.layout-minimal .eyebrow {
+    gap: 0;
+}
+
+body.layout-minimal .eyebrow::before {
+    display: none;
 }

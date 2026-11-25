@@ -1,5 +1,102 @@
+@php
+    $color = function (string $key, string $fallback): string {
+        $value = (string) \App\Models\Setting::get($key, $fallback);
+
+        return preg_match('/^#[0-9a-fA-F]{6}$/', $value) === 1 ? $value : $fallback;
+    };
+
+    $primary = $color('appearance.primary_color', '#D32F2F');
+    $paper = $color('appearance.paper_color', '#f7f4ee');
+    $surface = $color('appearance.surface_color', '#fdfbf7');
+    $raised = $color('appearance.raised_color', '#efe9df');
+    $line = $color('appearance.line_color', '#e4ddd0');
+    $ink = $color('appearance.ink_color', '#1f1b16');
+
+    $fontSans = (string) \App\Models\Setting::get('appearance.font_sans', 'hind');
+    $fontSans = in_array($fontSans, ['hind', 'inter', 'noto-sans', 'system'], true) ? $fontSans : 'hind';
+    $fontDisplay = (string) \App\Models\Setting::get('appearance.font_display', 'tiro');
+    $fontDisplay = in_array($fontDisplay, ['tiro', 'noto-serif', 'georgia', 'system'], true) ? $fontDisplay : 'tiro';
+    $fontSize = max(14, min(18, (int) (\App\Models\Setting::get('appearance.font_size', 16) ?: 16)));
+
+    $layout = (string) \App\Models\Setting::get('appearance.layout', 'classic');
+    $layout = in_array($layout, ['classic', 'minimal'], true) ? $layout : 'classic';
+    $containerWidth = (string) \App\Models\Setting::get('appearance.container_width', 'normal');
+    $containerWidth = in_array($containerWidth, ['normal', 'wide', 'full'], true) ? $containerWidth : 'normal';
+    $radius = (string) \App\Models\Setting::get('appearance.radius', 'soft');
+    $radius = in_array($radius, ['sharp', 'soft', 'round'], true) ? $radius : 'soft';
+    $sectionSpacing = (string) \App\Models\Setting::get('appearance.section_spacing', 'normal');
+    $sectionSpacing = in_array($sectionSpacing, ['compact', 'normal', 'relaxed'], true) ? $sectionSpacing : 'normal';
+    $buttonStyle = (string) \App\Models\Setting::get('appearance.button_style', 'ink');
+    $buttonStyle = in_array($buttonStyle, ['ink', 'brand', 'outline'], true) ? $buttonStyle : 'ink';
+    $cardStyle = (string) \App\Models\Setting::get('appearance.card_style', 'flat');
+    $cardStyle = in_array($cardStyle, ['flat', 'bordered', 'raised'], true) ? $cardStyle : 'flat';
+    $footerStyle = (string) \App\Models\Setting::get('appearance.footer_style', 'columns');
+    $footerStyle = in_array($footerStyle, ['columns', 'minimal'], true) ? $footerStyle : 'columns';
+
+    $stickyHeader = (bool) \App\Models\Setting::get('appearance.sticky_header', true);
+    $showHeaderTagline = (bool) \App\Models\Setting::get('appearance.show_header_tagline', true);
+    $showHeaderCta = (bool) \App\Models\Setting::get('appearance.show_header_cta', true);
+    $showContactBar = (bool) \App\Models\Setting::get('appearance.show_contact_bar', false);
+    $showFooterContact = (bool) \App\Models\Setting::get('appearance.show_footer_contact', true);
+    $showFooterDistricts = (bool) \App\Models\Setting::get('appearance.show_footer_districts', true);
+    $showFooterCredit = (bool) \App\Models\Setting::get('appearance.show_footer_credit', true);
+    $announcementEnabled = (bool) \App\Models\Setting::get('appearance.announcement_enabled', false);
+    $announcementText = (string) \App\Models\Setting::get('appearance.announcement_text', '');
+    $announcementUrl = (string) \App\Models\Setting::get('appearance.announcement_url', '');
+
+    $containerClass = match ($containerWidth) {
+        'wide' => 'max-w-[88rem]',
+        'full' => 'max-w-none',
+        default => 'max-w-7xl',
+    };
+
+    $fontSansStack = match ($fontSans) {
+        'inter' => "'Inter', ui-sans-serif, system-ui, sans-serif",
+        'noto-sans' => "'Noto Sans Bengali', 'Hind Siliguri', ui-sans-serif, system-ui, sans-serif",
+        'system' => "ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif",
+        default => "'Hind Siliguri', 'Inter', ui-sans-serif, system-ui, sans-serif",
+    };
+
+    $fontDisplayStack = match ($fontDisplay) {
+        'noto-serif' => "'Noto Serif Bengali', 'Tiro Bangla', Georgia, serif",
+        'georgia' => "Georgia, 'Tiro Bangla', serif",
+        'system' => "Georgia, 'Times New Roman', serif",
+        default => "'Tiro Bangla', 'Hind Siliguri', Georgia, serif",
+    };
+
+    $fontLinks = [];
+
+    if ($fontSans === 'hind') {
+        $fontLinks[] = 'Hind+Siliguri:wght@300;400;500;600';
+    } elseif ($fontSans === 'inter') {
+        $fontLinks[] = 'Inter:wght@300;400;500;600';
+    } elseif ($fontSans === 'noto-sans') {
+        $fontLinks[] = 'Noto+Sans+Bengali:wght@300;400;500;600';
+    }
+
+    if ($fontDisplay === 'tiro') {
+        $fontLinks[] = 'Tiro+Bangla:ital@0;1';
+    } elseif ($fontDisplay === 'noto-serif') {
+        $fontLinks[] = 'Noto+Serif+Bengali:wght@400;500;600';
+    }
+
+    $fontLinks[] = 'IBM+Plex+Mono:wght@400;500';
+    $fontUrl = 'https://fonts.googleapis.com/css2?'.implode('&', array_map(fn (string $family): string => 'family='.$family, $fontLinks)).'&display=swap';
+
+    $customCss = (string) \App\Models\Setting::get('appearance.custom_css', '');
+    $customCss = str_ireplace('</style', '', $customCss);
+
+    $bodyClasses = implode(' ', [
+        'min-h-screen bg-paper text-ink',
+        'layout-'.$layout,
+        'radius-'.$radius,
+        'spacing-'.$sectionSpacing,
+        'btn-style-'.$buttonStyle,
+        'card-style-'.$cardStyle,
+    ]);
+@endphp
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-pt-20" style="--color-brand-600: {{ \App\Models\Setting::get('appearance.primary_color', '#a51c1c') }};">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="scroll-pt-20" style="font-size: {{ $fontSize }}px; --font-sans: {{ $fontSansStack }}; --font-display: {{ $fontDisplayStack }}; --color-paper: {{ $paper }}; --color-surface: {{ $surface }}; --color-raised: {{ $raised }}; --color-line: {{ $line }}; --color-ink: {{ $ink }}; --color-ink-soft: color-mix(in srgb, {{ $ink }} 72%, {{ $paper }}); --color-ink-muted: color-mix(in srgb, {{ $ink }} 55%, {{ $paper }}); --color-accent: {{ $primary }}; --color-accent-strong: color-mix(in srgb, {{ $primary }} 65%, #000); --color-accent-soft: color-mix(in srgb, {{ $primary }} 10%, {{ $paper }}); --color-brand-50: color-mix(in srgb, {{ $primary }} 8%, {{ $paper }}); --color-brand-100: color-mix(in srgb, {{ $primary }} 18%, {{ $paper }}); --color-brand-200: color-mix(in srgb, {{ $primary }} 32%, {{ $paper }}); --color-brand-300: color-mix(in srgb, {{ $primary }} 48%, {{ $paper }}); --color-brand-400: color-mix(in srgb, {{ $primary }} 66%, {{ $paper }}); --color-brand-500: color-mix(in srgb, {{ $primary }} 82%, {{ $paper }}); --color-brand-600: {{ $primary }}; --color-brand-700: color-mix(in srgb, {{ $primary }} 65%, #000); --color-brand-800: color-mix(in srgb, {{ $primary }} 55%, #000); --color-brand-900: color-mix(in srgb, {{ $primary }} 45%, #000);">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -8,7 +105,7 @@
     <title>@yield('title', \App\Models\Setting::get('seo.title', 'One Blood Bank — বাংলাদেশের ভেরিফাইড ব্লাড ডোনার ডাটাবেজ'))</title>
     <meta name="description" content="@yield('meta_description', \App\Models\Setting::get('seo.description'))">
     <meta name="keywords" content="@yield('meta_keywords', \App\Models\Setting::get('seo.keywords'))">
-    <meta name="theme-color" content="#a51c1c">
+    <meta name="theme-color" content="{{ $primary }}">
 
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="{{ \App\Models\Setting::get('site.name', 'One Blood Bank') }}">
@@ -26,17 +123,48 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@300;400;500;600&family=Tiro+Bangla:ital@0;1&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link href="{{ $fontUrl }}" rel="stylesheet">
 
     @vite(['resources/css/app.css', 'resources/js/app.js'])
+    @if (filled($customCss))
+        <style>{!! $customCss !!}</style>
+    @endif
     @stack('head')
 </head>
-<body class="min-h-screen bg-paper text-ink">
-    <x-ad placement="header" class="mx-auto mt-3 max-w-7xl px-4" />
+<body class="{{ $bodyClasses }}">
+    <x-ad placement="header" class="mx-auto mt-3 {{ $containerClass }} px-4" />
 
-    <header class="sticky top-0 z-40 border-b border-line bg-paper/95 backdrop-blur-sm">
-        <div class="mx-auto flex h-16 max-w-7xl items-center gap-3 px-4 sm:px-6 lg:px-8">
-            <x-logo />
+    @if ($announcementEnabled && filled($announcementText))
+        <div class="border-b border-line bg-brand-700 text-white">
+            <div class="mx-auto {{ $containerClass }} px-4 py-2 text-center text-xs leading-relaxed sm:text-sm">
+                @if (filled($announcementUrl))
+                    <a href="{{ $announcementUrl }}" class="underline underline-offset-2 hover:opacity-90">{{ $announcementText }}</a>
+                @else
+                    {{ $announcementText }}
+                @endif
+            </div>
+        </div>
+    @endif
+
+    @if ($showContactBar)
+        <div class="border-b border-line bg-surface">
+            <div class="mx-auto flex {{ $containerClass }} flex-wrap items-center gap-x-4 gap-y-1 px-4 py-2 text-xs text-ink-muted sm:px-6 lg:px-8">
+                <span class="hidden sm:inline">{{ \App\Models\Setting::get('site.address') }}</span>
+                <div class="flex flex-wrap items-center gap-x-4 gap-y-1 sm:ml-auto">
+                    @if (\App\Models\Setting::get('site.contact_email'))
+                        <a href="mailto:{{ \App\Models\Setting::get('site.contact_email') }}" class="transition-colors hover:text-brand-700">{{ \App\Models\Setting::get('site.contact_email') }}</a>
+                    @endif
+                    @if (\App\Models\Setting::get('site.contact_phone'))
+                        <a href="tel:{{ \App\Models\Setting::get('site.contact_phone') }}" class="transition-colors hover:text-brand-700">{{ \App\Models\Setting::get('site.contact_phone') }}</a>
+                    @endif
+                </div>
+            </div>
+        </div>
+    @endif
+
+    <header class="{{ $stickyHeader ? 'sticky top-0' : 'relative' }} z-40 border-b border-line bg-paper/95 backdrop-blur-sm">
+        <div class="mx-auto flex h-16 {{ $containerClass }} items-center gap-3 px-4 sm:px-6 lg:px-8">
+            <x-logo :compact="! $showHeaderTagline" />
 
             <nav class="ml-8 hidden items-center gap-0.5 lg:flex">
                 <a href="{{ route('donors.index') }}" class="nav-link {{ request()->routeIs('donors.*') ? 'nav-link-active' : '' }}">ডোনার খুঁজুন</a>
@@ -84,7 +212,9 @@
                     </details>
                 @else
                     <a href="{{ route('login') }}" class="btn-ghost btn-sm">লগইন</a>
-                    <a href="{{ route('register') }}" class="btn-primary btn-sm">রেজিস্টার</a>
+                    @if ($showHeaderCta)
+                        <a href="{{ route('register') }}" class="btn-primary btn-sm">রেজিস্টার</a>
+                    @endif
                 @endauth
 
                 <button type="button" data-menu-toggle="mobile-menu" aria-expanded="false" aria-label="মেনু"
@@ -111,7 +241,7 @@
         </div>
     </header>
 
-    <main class="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+    <main class="mx-auto w-full {{ $containerClass }} px-4 py-8 sm:px-6 lg:px-8">
         <x-alerts />
 
         @if (auth()->check() && auth()->user()->needsEmailVerification())
@@ -128,73 +258,107 @@
     </main>
 
     <footer class="mt-20 border-t border-line bg-surface">
-        <div class="mx-auto grid max-w-7xl gap-10 px-4 py-14 sm:px-6 lg:grid-cols-4 lg:px-8">
-            <div class="lg:col-span-1">
-                <x-logo />
-                <p class="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
-                    বাংলাদেশের জেলা, উপজেলা ও ইউনিয়ন ভিত্তিক ভেরিফাইড ব্লাড ডোনার নেটওয়ার্ক। ফ্রি, দ্রুত ও নিরাপদ।
-                </p>
-                <div class="mt-4 space-y-1 text-sm text-ink-muted">
-                    <p>ইমেইল: {{ \App\Models\Setting::get('site.contact_email') }}</p>
-                    <p>ফোন: {{ \App\Models\Setting::get('site.contact_phone') }}</p>
+        @if ($footerStyle === 'minimal')
+            <div class="mx-auto {{ $containerClass }} px-4 py-10 sm:px-6 lg:px-8">
+                <div class="flex flex-col gap-6 lg:flex-row lg:items-center lg:justify-between">
+                    <div>
+                        <x-logo />
+                        <p class="mt-3 max-w-md text-sm leading-relaxed text-ink-soft">
+                            বাংলাদেশের জেলা, উপজেলা ও ইউনিয়ন ভিত্তিক ভেরিফাইড ব্লাড ডোনার নেটওয়ার্ক। ফ্রি, দ্রুত ও নিরাপদ।
+                        </p>
+                        @if ($showFooterContact)
+                            <div class="mt-3 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-muted">
+                                <span>ইমেইল: {{ \App\Models\Setting::get('site.contact_email') }}</span>
+                                <span>ফোন: {{ \App\Models\Setting::get('site.contact_phone') }}</span>
+                            </div>
+                        @endif
+                    </div>
+                    <nav class="flex flex-wrap gap-x-5 gap-y-2 text-sm text-ink-soft">
+                        <a class="transition-colors hover:text-brand-700" href="{{ route('donors.index') }}">ডোনার খুঁজুন</a>
+                        <a class="transition-colors hover:text-brand-700" href="{{ route('requests.index') }}">রক্তের অনুরোধ</a>
+                        <a class="transition-colors hover:text-brand-700" href="{{ route('donor.apply') }}">ডোনার হোন</a>
+                        @if (\App\Models\Setting::get('others.blog_enabled', true))
+                            <a class="transition-colors hover:text-brand-700" href="{{ route('blog.index') }}">ব্লগ</a>
+                        @endif
+                        <a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'contact') }}">যোগাযোগ</a>
+                    </nav>
                 </div>
             </div>
-
-            <div>
-                <h3 class="text-sm font-medium text-ink">দ্রুত লিংক</h3>
-                <ul class="mt-4 space-y-2.5 text-sm text-ink-soft">
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('donors.index') }}">ডোনার খুঁজুন</a></li>
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('donor.apply') }}">ডোনার হোন</a></li>
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('requests.index') }}">রক্তের অনুরোধ</a></li>
-                    @if (\App\Models\Setting::get('others.blog_enabled', true))
-                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('blog.index') }}">ব্লগ</a></li>
+        @else
+            <div class="mx-auto grid {{ $containerClass }} gap-10 px-4 py-14 sm:px-6 {{ $showFooterDistricts ? 'lg:grid-cols-4' : 'lg:grid-cols-3' }} lg:px-8">
+                <div class="lg:col-span-1">
+                    <x-logo />
+                    <p class="mt-4 max-w-xs text-sm leading-relaxed text-ink-soft">
+                        বাংলাদেশের জেলা, উপজেলা ও ইউনিয়ন ভিত্তিক ভেরিফাইড ব্লাড ডোনার নেটওয়ার্ক। ফ্রি, দ্রুত ও নিরাপদ।
+                    </p>
+                    @if ($showFooterContact)
+                        <div class="mt-4 space-y-1 text-sm text-ink-muted">
+                            <p>ইমেইল: {{ \App\Models\Setting::get('site.contact_email') }}</p>
+                            <p>ফোন: {{ \App\Models\Setting::get('site.contact_phone') }}</p>
+                        </div>
                     @endif
-                    @if (\App\Models\Setting::get('donation.enabled', true))
-                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('donate.index') }}">সাইটে সহযোগিতা</a></li>
-                    @endif
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'about') }}">আমাদের সম্পর্কে</a></li>
-                </ul>
-            </div>
+                </div>
 
-            <div>
-                <h3 class="text-sm font-medium text-ink">নীতিমালা</h3>
-                <ul class="mt-4 space-y-2.5 text-sm text-ink-soft">
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'privacy-policy') }}">গোপনীয়তা নীতি</a></li>
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'terms') }}">শর্তাবলী</a></li>
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'contact') }}">যোগাযোগ</a></li>
-                    <li><a class="transition-colors hover:text-brand-700" href="{{ route('register') }}">অ্যাকাউন্ট খুলুন</a></li>
-                </ul>
-            </div>
+                <div>
+                    <h3 class="text-sm font-medium text-ink">দ্রুত লিংক</h3>
+                    <ul class="mt-4 space-y-2.5 text-sm text-ink-soft">
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('donors.index') }}">ডোনার খুঁজুন</a></li>
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('donor.apply') }}">ডোনার হোন</a></li>
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('requests.index') }}">রক্তের অনুরোধ</a></li>
+                        @if (\App\Models\Setting::get('others.blog_enabled', true))
+                            <li><a class="transition-colors hover:text-brand-700" href="{{ route('blog.index') }}">ব্লগ</a></li>
+                        @endif
+                        @if (\App\Models\Setting::get('donation.enabled', true))
+                            <li><a class="transition-colors hover:text-brand-700" href="{{ route('donate.index') }}">সাইটে সহযোগিতা</a></li>
+                        @endif
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'about') }}">আমাদের সম্পর্কে</a></li>
+                    </ul>
+                </div>
 
-            <div>
-                <h3 class="text-sm font-medium text-ink">জনপ্রিয় জেলা</h3>
-                <ul class="mt-4 space-y-2.5 text-sm text-ink-soft">
-                    @foreach ($footerDistricts as $district)
-                        <li>
-                            <a class="transition-colors hover:text-brand-700" href="{{ route('donors.index', ['district_id' => $district['id']]) }}">
-                                @if (app()->getLocale() === 'en')
-                                    {{ $district['name'] ?: $district['name_bn'] }} blood donors
-                                @else
-                                    {{ $district['name_bn'] }}-এ ব্লাড ডোনার
-                                @endif
-                            </a>
-                        </li>
-                    @endforeach
-                </ul>
+                <div>
+                    <h3 class="text-sm font-medium text-ink">নীতিমালা</h3>
+                    <ul class="mt-4 space-y-2.5 text-sm text-ink-soft">
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'privacy-policy') }}">গোপনীয়তা নীতি</a></li>
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'terms') }}">শর্তাবলী</a></li>
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('pages.show', 'contact') }}">যোগাযোগ</a></li>
+                        <li><a class="transition-colors hover:text-brand-700" href="{{ route('register') }}">অ্যাকাউন্ট খুলুন</a></li>
+                    </ul>
+                </div>
+
+                @if ($showFooterDistricts)
+                    <div>
+                        <h3 class="text-sm font-medium text-ink">জনপ্রিয় জেলা</h3>
+                        <ul class="mt-4 space-y-2.5 text-sm text-ink-soft">
+                            @foreach ($footerDistricts as $district)
+                                <li>
+                                    <a class="transition-colors hover:text-brand-700" href="{{ route('donors.index', ['district_id' => $district['id']]) }}">
+                                        @if (app()->getLocale() === 'en')
+                                            {{ $district['name'] ?: $district['name_bn'] }} blood donors
+                                        @else
+                                            {{ $district['name_bn'] }}-এ ব্লাড ডোনার
+                                        @endif
+                                    </a>
+                                </li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
-        </div>
+        @endif
 
         <div class="border-t border-line px-4 py-6 text-center text-xs text-ink-muted">
             @if (\App\Models\Setting::get('others.footer_text'))
                 <p class="mb-1">{{ \App\Models\Setting::get('others.footer_text') }}</p>
             @endif
             <p>© {{ now()->year }} {{ \App\Models\Setting::get('site.name', 'One Blood Bank') }} — সর্বস্বত্ব সংরক্ষিত।</p>
-            <p class="mt-1">
-                ডেভেলপার ও রক্ষণাবেক্ষণ:
-                <a href="https://github.com/johirxofficial" target="_blank" rel="noopener" class="font-medium text-ink-soft transition-colors hover:text-brand-700">johirxofficial</a>
-                · ওপেন সোর্স কোড:
-                <a href="https://github.com/johirxofficial/one-blood-bank" target="_blank" rel="noopener" class="font-medium text-ink-soft transition-colors hover:text-brand-700">GitHub</a>
-            </p>
+            @if ($showFooterCredit)
+                <p class="mt-1">
+                    ডেভেলপার ও রক্ষণাবেক্ষণ:
+                    <a href="https://github.com/johirxofficial" target="_blank" rel="noopener" class="font-medium text-ink-soft transition-colors hover:text-brand-700">johirxofficial</a>
+                    · ওপেন সোর্স কোড:
+                    <a href="https://github.com/johirxofficial/one-blood-bank" target="_blank" rel="noopener" class="font-medium text-ink-soft transition-colors hover:text-brand-700">GitHub</a>
+                </p>
+            @endif
         </div>
     </footer>
 

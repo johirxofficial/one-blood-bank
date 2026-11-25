@@ -1,5 +1,9 @@
+@php
+    $adminPrimary = (string) \App\Models\Setting::get('appearance.primary_color', '#D32F2F');
+    $adminPrimary = preg_match('/^#[0-9a-fA-F]{6}$/', $adminPrimary) === 1 ? $adminPrimary : '#D32F2F';
+@endphp
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full" style="--color-brand-600: {{ \App\Models\Setting::get('appearance.primary_color', '#a51c1c') }};">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="h-full" style="--color-brand-50: color-mix(in srgb, {{ $adminPrimary }} 8%, #f7f4ee); --color-brand-100: color-mix(in srgb, {{ $adminPrimary }} 18%, #f7f4ee); --color-brand-200: color-mix(in srgb, {{ $adminPrimary }} 32%, #f7f4ee); --color-brand-300: color-mix(in srgb, {{ $adminPrimary }} 48%, #f7f4ee); --color-brand-400: color-mix(in srgb, {{ $adminPrimary }} 66%, #f7f4ee); --color-brand-500: color-mix(in srgb, {{ $adminPrimary }} 82%, #f7f4ee); --color-brand-600: {{ $adminPrimary }}; --color-brand-700: color-mix(in srgb, {{ $adminPrimary }} 65%, #000); --color-brand-800: color-mix(in srgb, {{ $adminPrimary }} 55%, #000); --color-brand-900: color-mix(in srgb, {{ $adminPrimary }} 45%, #000);">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">

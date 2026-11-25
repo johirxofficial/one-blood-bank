@@ -3,23 +3,47 @@
 @section('title', \App\Models\Setting::get('seo.title'))
 @section('meta_description', \App\Models\Setting::get('seo.description'))
 
+@php
+    $heroStyle = (string) \App\Models\Setting::get('appearance.hero_style', 'split');
+    $heroStyle = in_array($heroStyle, ['split', 'centered', 'minimal'], true) ? $heroStyle : 'split';
+    $heroCentered = in_array($heroStyle, ['centered', 'minimal'], true);
+    $showHeroSearch = (bool) \App\Models\Setting::get('appearance.show_hero_search', true);
+    $showHeroPoints = (bool) \App\Models\Setting::get('appearance.show_hero_points', true);
+    $showStats = (bool) \App\Models\Setting::get('appearance.show_stats', true);
+    $showUrgentRequests = (bool) \App\Models\Setting::get('appearance.show_urgent_requests', true);
+    $showSteps = (bool) \App\Models\Setting::get('appearance.show_steps', true);
+    $showCommunity = (bool) \App\Models\Setting::get('appearance.show_community', true);
+    $showDonorCard = (bool) \App\Models\Setting::get('appearance.show_donor_card', true);
+    $showCta = (bool) \App\Models\Setting::get('appearance.show_cta', true);
+
+    $heroSectionClass = $heroStyle === 'split' && $showHeroSearch
+        ? 'grid items-center gap-10 py-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-16 lg:py-14'
+        : ($heroStyle === 'split' ? 'py-8 lg:py-14' : 'py-10 text-center');
+    $heroContentClass = $heroCentered ? 'mx-auto max-w-3xl' : '';
+    $heroActionsClass = 'mt-7 flex flex-wrap gap-3'.($heroCentered ? ' justify-center' : '');
+    $heroPointsClass = 'mt-7 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink-muted'.($heroCentered ? ' justify-center' : '');
+    $searchClass = $heroStyle === 'split'
+        ? 'rounded-[16px] border border-line bg-surface p-5 sm:p-6'
+        : 'mx-auto mt-10 w-full max-w-2xl rounded-[16px] border border-line bg-surface p-5 text-left sm:p-6';
+@endphp
+
 @section('content')
     {{-- Hero: a quiet page with one useful object, the donor register --}}
-    <section class="grid items-center gap-10 py-8 lg:grid-cols-[1.02fr_.98fr] lg:gap-16 lg:py-14">
-        <div>
-            <p class="eyebrow">বাংলাদেশের ভেরিফাইড ডোনার নেটওয়ার্ক</p>
+    <section class="{{ $heroSectionClass }}">
+        <div class="{{ $heroContentClass }}">
+            <p class="eyebrow {{ $heroCentered ? 'justify-center' : '' }}">বাংলাদেশের ভেরিফাইড ডোনার নেটওয়ার্ক</p>
 
             <h1 class="display-title mt-5 text-[2.15rem] sm:text-5xl lg:text-[3.35rem]">
                 রক্ত লাগবে?<br>
                 কাছের ভেরিফাইড ডোনার খুঁজুন
             </h1>
 
-            <p class="mt-5 max-w-lg text-[15px] leading-relaxed text-ink-soft sm:text-base">
+            <p class="mt-5 max-w-lg text-[15px] leading-relaxed text-ink-soft sm:text-base {{ $heroCentered ? 'mx-auto' : '' }}">
                 ২ মিনিটে, সম্পূর্ণ ফ্রি। জেলা, উপজেলা ও ইউনিয়ন ভিত্তিক ডোনার খুঁজে সরাসরি কল করুন।
                 প্রতিটি নম্বর যাচাই করা — ভুয়া নম্বর বা দালালের ঝামেলা নেই।
             </p>
 
-            <div class="mt-7 flex flex-wrap gap-3">
+            <div class="{{ $heroActionsClass }}">
                 <a href="#search" class="btn-primary h-12 px-6">
                     <svg class="h-4 w-4" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true">
                         <circle cx="9" cy="9" r="5.25"/><path d="m13 13 3.5 3.5" stroke-linecap="round"/>
@@ -29,7 +53,8 @@
                 <a href="{{ route('donor.apply') }}" class="btn-secondary h-12 px-6">ডোনার হোন</a>
             </div>
 
-            <ul class="mt-7 flex flex-wrap gap-x-6 gap-y-2 text-xs text-ink-muted">
+            @if ($showHeroPoints)
+            <ul class="{{ $heroPointsClass }}">
                 <li class="inline-flex items-center gap-1.5">
                     <svg class="h-3.5 w-3.5 text-brand-700" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="m4 10.5 3.5 3.5L16 5.5" stroke-linecap="round" stroke-linejoin="round"/></svg>
                     নম্বর ভেরিফাইড
@@ -43,10 +68,12 @@
                     সম্পূর্ণ ফ্রি
                 </li>
             </ul>
+            @endif
         </div>
 
         {{-- The one rich object: a real search form that looks like a register --}}
-        <div id="search" class="rounded-[16px] border border-line bg-surface p-5 sm:p-6">
+        @if ($showHeroSearch)
+        <div id="search" class="{{ $searchClass }}">
             <div class="flex items-start justify-between gap-3 border-b border-line pb-4">
                 <div>
                     <h2 class="font-display text-xl font-normal text-ink">ডোনার খুঁজুন</h2>
@@ -86,10 +113,11 @@
                 ডোনারের নম্বর শুধু লগইন করা ও নম্বর-ভেরিফাইড ইউজাররা দেখতে পারেন।
             </p>
         </div>
+        @endif
     </section>
 
     {{-- Stats: one quiet row, no cards or icons --}}
-    @if (\App\Models\Setting::get('appearance.show_stats', true))
+    @if ($showStats)
         <section class="mt-10 border-y border-line">
             <div class="grid grid-cols-2 gap-px bg-line lg:grid-cols-4">
                 @foreach ([
@@ -108,6 +136,7 @@
     @endif
 
     {{-- How it works: numbered steps on a hairline, no cards --}}
+    @if ($showSteps)
     <section class="mt-16">
         <div class="max-w-2xl">
             <p class="eyebrow">যেভাবে কাজ করে</p>
@@ -143,8 +172,10 @@
             @endforeach
         </div>
     </section>
+    @endif
 
     {{-- Donors --}}
+    @if ($showCommunity)
     <section class="mt-16">
         <div class="flex flex-wrap items-end justify-between gap-3">
             <div class="max-w-2xl">
@@ -212,9 +243,10 @@
             </div>
         @endif
     </section>
+    @endif
 
     {{-- Urgent requests --}}
-    @if (\App\Models\Setting::get('appearance.show_urgent_requests', true) && $urgentRequests->isNotEmpty())
+    @if ($showUrgentRequests && $urgentRequests->isNotEmpty())
         <section class="mt-16">
             <div class="flex flex-wrap items-end justify-between gap-3">
                 <div class="max-w-2xl">
@@ -257,6 +289,7 @@
     @endif
 
     {{-- ID card: the second rich moment, built as a real object --}}
+    @if ($showDonorCard)
     <section class="mt-16 overflow-hidden rounded-[16px] border border-line bg-raised">
         <div class="grid items-center gap-10 p-6 sm:p-10 lg:grid-cols-2 lg:gap-16">
             <div>
@@ -320,8 +353,10 @@
             </div>
         </div>
     </section>
+    @endif
 
     {{-- CTA --}}
+    @if ($showCta)
     <section class="mt-16 rounded-[16px] bg-ink px-6 py-12 text-center text-paper sm:px-10">
         <h2 class="font-display text-3xl font-normal leading-tight tracking-[-0.01em] sm:text-4xl">এক ব্যাগ রক্ত বাঁচাতে পারে একটি জীবন</h2>
         <p class="mx-auto mt-3 max-w-2xl text-sm leading-relaxed text-paper/70">
@@ -332,4 +367,5 @@
             <a href="{{ route('donor.apply') }}" class="btn h-11 border border-paper/25 px-6 text-paper hover:bg-surface/5">ডোনার আবেদন করুন</a>
         </div>
     </section>
+    @endif
 @endsection

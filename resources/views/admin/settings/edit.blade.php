@@ -9,7 +9,7 @@
     $activeTab = old('_tab', request('tab', 'site'));
     $tabs = [
         'site' => 'সাইট তথ্য',
-        'appearance' => 'চেহারা ও লোগো',
+        'appearance' => 'ব্র্যান্ড ও লেআউট',
         'seo' => 'SEO',
         'security' => 'নিরাপত্তা ও ভেরিফিকেশন',
         'mail' => 'মেইল / SMTP',
@@ -123,25 +123,224 @@
         {{-- Appearance --}}
         <section data-settings-panel="appearance" class="{{ $activeTab === 'appearance' ? '' : 'hidden' }}">
             <div class="grid gap-6 xl:grid-cols-2">
-                <div class="card p-5 sm:p-6">
-                    <h3 class="text-base font-semibold text-ink">ব্র্যান্ড ও লেআউট</h3>
-                    <div class="mt-4 space-y-4">
-                        <div class="grid gap-4 sm:grid-cols-2">
+                <div class="card p-5 sm:p-6 xl:col-span-2">
+                    <div class="flex flex-wrap items-start justify-between gap-3">
+                        <div>
+                            <h3 class="text-base font-semibold text-ink">ব্র্যান্ড ও লেআউট</h3>
+                            <p class="text-xs text-ink-muted">কালার, ফন্ট, হেডার, হোমপেজ, ফুটার ও কাস্টম CSS—সব এক জায়গায়।</p>
+                        </div>
+                        <span class="badge bg-brand-50 text-brand-700">লাইভ সাইটে প্রযোজ্য</span>
+                    </div>
+
+                    <div class="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+                        @foreach ([
+                            'primary_color' => ['ব্র্যান্ড কালার', '#D32F2F'],
+                            'paper_color' => ['পেজ ব্যাকগ্রাউন্ড', '#f7f4ee'],
+                            'surface_color' => ['কার্ড / সারফেস', '#fdfbf7'],
+                            'raised_color' => ['সহায়ক ব্যাকগ্রাউন্ড', '#efe9df'],
+                            'line_color' => ['বর্ডার / হেয়ারলাইন', '#e4ddd0'],
+                            'ink_color' => ['টেক্সট কালার', '#1f1b16'],
+                        ] as $colorKey => [$colorLabel, $colorFallback])
                             <div>
-                                <label class="label" for="appearance_primary_color">ব্র্যান্ড কালার <span class="text-brand-600">*</span></label>
+                                <label class="label" for="appearance_{{ $colorKey }}">{{ $colorLabel }}</label>
                                 <div class="flex gap-2">
-                                    <input type="color" name="appearance[primary_color]" id="appearance_primary_color" class="h-11 w-14 cursor-pointer rounded-xl border border-line bg-surface p-1" value="{{ $val('appearance.primary_color', '#D32F2F') }}" required>
-                                    <input type="text" class="input font-mono" value="{{ $val('appearance.primary_color', '#D32F2F') }}" readonly aria-label="নির্বাচিত কালার">
+                                    <input type="color" name="appearance[{{ $colorKey }}]" id="appearance_{{ $colorKey }}" class="h-11 w-14 cursor-pointer rounded-xl border border-line bg-surface p-1" value="{{ $val('appearance.'.$colorKey, $colorFallback) }}" @if ($colorKey === 'primary_color') required @endif data-color-picker>
+                                    <input type="text" class="input font-mono" value="{{ $val('appearance.'.$colorKey, $colorFallback) }}" readonly data-color-value aria-label="{{ $colorLabel }}">
                                 </div>
                             </div>
-                            <div>
-                                <label class="label" for="appearance_layout">লেআউট <span class="text-brand-600">*</span></label>
-                                <select name="appearance[layout]" id="appearance_layout" class="input" required>
-                                    <option value="classic" @selected($val('appearance.layout', 'classic') === 'classic')>ক্লাসিক</option>
-                                    <option value="minimal" @selected($val('appearance.layout', 'classic') === 'minimal')>মিনিমাল</option>
-                                </select>
-                            </div>
+                        @endforeach
+                    </div>
+                    <p class="help mt-3">ব্র্যান্ড কালার থেকে বাটন, লিংক, ব্যাজ ও হাইলাইটের সব শেড স্বয়ংক্রিয়ভাবে তৈরি হবে।</p>
+                </div>
+
+                <div class="card p-5 sm:p-6">
+                    <h3 class="text-base font-semibold text-ink">টাইপোগ্রাফি</h3>
+                    <p class="text-xs text-ink-muted">বাংলা ও ইংরেজি—দুই ভাষার জন্য আলাদা ফন্ট বেছে নিন।</p>
+                    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label class="label" for="appearance_font_sans">বডি ফন্ট</label>
+                            <select name="appearance[font_sans]" id="appearance_font_sans" class="input">
+                                <option value="hind" @selected($val('appearance.font_sans', 'hind') === 'hind')>Hind Siliguri</option>
+                                <option value="inter" @selected($val('appearance.font_sans', 'hind') === 'inter')>Inter</option>
+                                <option value="noto-sans" @selected($val('appearance.font_sans', 'hind') === 'noto-sans')>Noto Sans Bengali</option>
+                                <option value="system" @selected($val('appearance.font_sans', 'hind') === 'system')>System Sans</option>
+                            </select>
                         </div>
+                        <div>
+                            <label class="label" for="appearance_font_display">হেডিং ফন্ট</label>
+                            <select name="appearance[font_display]" id="appearance_font_display" class="input">
+                                <option value="tiro" @selected($val('appearance.font_display', 'tiro') === 'tiro')>Tiro Bangla</option>
+                                <option value="noto-serif" @selected($val('appearance.font_display', 'tiro') === 'noto-serif')>Noto Serif Bengali</option>
+                                <option value="georgia" @selected($val('appearance.font_display', 'tiro') === 'georgia')>Georgia</option>
+                                <option value="system" @selected($val('appearance.font_display', 'tiro') === 'system')>System Serif</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_font_size">বেস ফন্ট সাইজ</label>
+                            <div class="flex items-center gap-2">
+                                <input type="number" name="appearance[font_size]" id="appearance_font_size" class="input" min="14" max="18" value="{{ $val('appearance.font_size', 16) }}">
+                                <span class="text-sm text-ink-muted">px</span>
+                            </div>
+                            <p class="help">১৪–১৮ px। পুরো সাইটের রিম-ভিত্তিক টেক্সট এতে স্কেল হবে।</p>
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_logo_height">লোগো সাইজ</label>
+                            <div class="flex items-center gap-2">
+                                <input type="number" name="appearance[logo_height]" id="appearance_logo_height" class="input" min="24" max="64" value="{{ $val('appearance.logo_height', 36) }}">
+                                <span class="text-sm text-ink-muted">px</span>
+                            </div>
+                            <p class="help">হেডার ও ফুটারের লোগো/আইকনের উচ্চতা।</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-5 sm:p-6">
+                    <h3 class="text-base font-semibold text-ink">লেআউট ও স্টাইল</h3>
+                    <p class="text-xs text-ink-muted">কন্টেইনার, কর্নার, স্পেসিং ও বাটন/কার্ডের চেহারা।</p>
+                    <div class="mt-4 grid gap-4 sm:grid-cols-2">
+                        <div>
+                            <label class="label" for="appearance_container_width">কন্টেইনার প্রস্থ</label>
+                            <select name="appearance[container_width]" id="appearance_container_width" class="input">
+                                <option value="normal" @selected($val('appearance.container_width', 'normal') === 'normal')>স্বাভাবিক</option>
+                                <option value="wide" @selected($val('appearance.container_width', 'normal') === 'wide')>প্রশস্ত</option>
+                                <option value="full" @selected($val('appearance.container_width', 'normal') === 'full')>ফুল উইডথ</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_radius">কর্নার স্টাইল</label>
+                            <select name="appearance[radius]" id="appearance_radius" class="input">
+                                <option value="sharp" @selected($val('appearance.radius', 'soft') === 'sharp')>শার্প</option>
+                                <option value="soft" @selected($val('appearance.radius', 'soft') === 'soft')>সফট</option>
+                                <option value="round" @selected($val('appearance.radius', 'soft') === 'round')>রাউন্ড</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_section_spacing">সেকশন স্পেসিং</label>
+                            <select name="appearance[section_spacing]" id="appearance_section_spacing" class="input">
+                                <option value="compact" @selected($val('appearance.section_spacing', 'normal') === 'compact')>কমপ্যাক্ট</option>
+                                <option value="normal" @selected($val('appearance.section_spacing', 'normal') === 'normal')>স্বাভাবিক</option>
+                                <option value="relaxed" @selected($val('appearance.section_spacing', 'normal') === 'relaxed')>রিলাক্সড</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_button_style">প্রাইমারি বাটন</label>
+                            <select name="appearance[button_style]" id="appearance_button_style" class="input">
+                                <option value="ink" @selected($val('appearance.button_style', 'ink') === 'ink')>কালো (ডিফল্ট)</option>
+                                <option value="brand" @selected($val('appearance.button_style', 'ink') === 'brand')>ব্র্যান্ড কালার</option>
+                                <option value="outline" @selected($val('appearance.button_style', 'ink') === 'outline')>আউটলাইন</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_card_style">কার্ড স্টাইল</label>
+                            <select name="appearance[card_style]" id="appearance_card_style" class="input">
+                                <option value="flat" @selected($val('appearance.card_style', 'flat') === 'flat')>ফ্ল্যাট (ডিফল্ট)</option>
+                                <option value="bordered" @selected($val('appearance.card_style', 'flat') === 'bordered')>শক্ত বর্ডার</option>
+                                <option value="raised" @selected($val('appearance.card_style', 'flat') === 'raised')>হালকা শ্যাডো</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_layout">ওভারঅল লেআউট <span class="text-brand-600">*</span></label>
+                            <select name="appearance[layout]" id="appearance_layout" class="input" required>
+                                <option value="classic" @selected($val('appearance.layout', 'classic') === 'classic')>ক্লাসিক</option>
+                                <option value="minimal" @selected($val('appearance.layout', 'classic') === 'minimal')>মিনিমাল</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-5 sm:p-6">
+                    <h3 class="text-base font-semibold text-ink">হেডার ও ঘোষণা</h3>
+                    <p class="text-xs text-ink-muted">উপরের বার, নেভিগেশন ও ঘোষণার আচরণ।</p>
+                    <div class="mt-4 space-y-2">
+                        @foreach ([
+                            'sticky_header' => ['স্টিকি হেডার', 'স্ক্রল করলেও হেডার উপরে আটকে থাকবে।'],
+                            'show_header_tagline' => ['হেডারে ট্যাগলাইন', 'লোগোর নিচে সাইটের ট্যাগলাইন দেখাবে।'],
+                            'show_header_cta' => ['হেডারে রেজিস্টার বাটন', 'গেস্ট ইউজারদের জন্য রেজিস্টার বাটন।'],
+                            'show_contact_bar' => ['উপরের যোগাযোগ বার', 'হেডারের উপরে ঠিকানা, ইমেইল ও ফোন দেখাবে।'],
+                            'announcement_enabled' => ['ঘোষণা বার চালু', 'হেডারের উপরে একটি ছোট ঘোষণা দেখাবে।'],
+                        ] as $toggleKey => [$toggleLabel, $toggleHelp])
+                            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
+                                <input type="hidden" name="appearance[{{ $toggleKey }}]" value="0">
+                                <input type="checkbox" name="appearance[{{ $toggleKey }}]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('appearance.'.$toggleKey))>
+                                <span>
+                                    <span class="block text-sm font-medium text-ink">{{ $toggleLabel }}</span>
+                                    <span class="block text-xs text-ink-muted">{{ $toggleHelp }}</span>
+                                </span>
+                            </label>
+                        @endforeach
+                    </div>
+                    <div class="mt-4 grid gap-4">
+                        <div>
+                            <label class="label" for="appearance_announcement_text">ঘোষণার লেখা</label>
+                            <input type="text" name="appearance[announcement_text]" id="appearance_announcement_text" class="input" value="{{ $val('appearance.announcement_text') }}" maxlength="200" placeholder="যেমন: আজ রক্তদান শিবির চলছে—সবার অংশগ্রহণ কাম্য।">
+                        </div>
+                        <div>
+                            <label class="label" for="appearance_announcement_url">ঘোষণার লিংক</label>
+                            <input type="text" name="appearance[announcement_url]" id="appearance_announcement_url" class="input" value="{{ $val('appearance.announcement_url') }}" maxlength="500" placeholder="/requests অথবা https://example.com">
+                            <p class="help">খালি রাখলে শুধু লেখা দেখাবে, লিংক থাকলে ক্লিকযোগ্য হবে।</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="card p-5 sm:p-6 xl:col-span-2">
+                    <h3 class="text-base font-semibold text-ink">হোমপেজ সেকশন</h3>
+                    <p class="text-xs text-ink-muted">হিরোর ধরন এবং কোন সেকশনগুলো পাবলিক হোমপেজে দেখানো হবে।</p>
+                    <div class="mt-4 max-w-md">
+                        <label class="label" for="appearance_hero_style">হিরো স্টাইল</label>
+                        <select name="appearance[hero_style]" id="appearance_hero_style" class="input">
+                            <option value="split" @selected($val('appearance.hero_style', 'split') === 'split')>স্প্লিট (টেক্সট + সার্চ)</option>
+                            <option value="centered" @selected($val('appearance.hero_style', 'split') === 'centered')>সেন্টারড</option>
+                            <option value="minimal" @selected($val('appearance.hero_style', 'split') === 'minimal')>মিনিমাল</option>
+                        </select>
+                    </div>
+                    <div class="mt-4 grid gap-2 sm:grid-cols-2">
+                        @foreach ([
+                            'show_hero_search' => ['হিরো সার্চ ফর্ম', 'হিরোতে ডোনার খোঁজার ফর্ম।'],
+                            'show_hero_points' => ['হিরো ট্রাস্ট পয়েন্ট', 'ভেরিফাইড, ফ্রি ইত্যাদি ছোট পয়েন্ট।'],
+                            'show_stats' => ['পরিসংখ্যান সেকশন', 'ডোনার, ইউজার ও রক্তদানের সংখ্যা।'],
+                            'show_urgent_requests' => ['জরুরি অনুরোধ সেকশন', 'সাম্প্রতিক রক্তের অনুরোধগুলো।'],
+                            'show_steps' => ['তিন ধাপের সেকশন', 'অ্যাকাউন্ট → খোঁজা → কল করার গাইড।'],
+                            'show_community' => ['ডোনার কমিউনিটি', 'ডোনার কার্ড বা লগইন প্রম্পট।'],
+                            'show_donor_card' => ['ডিজিটাল আইডি কার্ড', 'QR ডোনার কার্ডের প্রচারমূলক সেকশন।'],
+                            'show_cta' => ['শেষের CTA', 'অ্যাকাউন্ট খোলা/আবেদনের বড় ব্যানার।'],
+                        ] as $toggleKey => [$toggleLabel, $toggleHelp])
+                            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
+                                <input type="hidden" name="appearance[{{ $toggleKey }}]" value="0">
+                                <input type="checkbox" name="appearance[{{ $toggleKey }}]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('appearance.'.$toggleKey))>
+                                <span>
+                                    <span class="block text-sm font-medium text-ink">{{ $toggleLabel }}</span>
+                                    <span class="block text-xs text-ink-muted">{{ $toggleHelp }}</span>
+                                </span>
+                            </label>
+                        @endforeach
+                    </div>
+                </div>
+
+                <div class="card p-5 sm:p-6">
+                    <h3 class="text-base font-semibold text-ink">ফুটার</h3>
+                    <p class="text-xs text-ink-muted">ফুটারের লেআউট ও কোন তথ্য দেখাবে।</p>
+                    <div class="mt-4">
+                        <label class="label" for="appearance_footer_style">ফুটার স্টাইল</label>
+                        <select name="appearance[footer_style]" id="appearance_footer_style" class="input">
+                            <option value="columns" @selected($val('appearance.footer_style', 'columns') === 'columns')>কলাম (ডিফল্ট)</option>
+                            <option value="minimal" @selected($val('appearance.footer_style', 'columns') === 'minimal')>মিনিমাল</option>
+                        </select>
+                    </div>
+                    <div class="mt-4 space-y-2">
+                        @foreach ([
+                            'show_footer_contact' => ['যোগাযোগ তথ্য', 'ফুটারে ইমেইল ও ফোন।'],
+                            'show_footer_districts' => ['জনপ্রিয় জেলা', 'ফুটারে জেলা ভিত্তিক ডোনার লিংক।'],
+                            'show_footer_credit' => ['ডেভেলপার ক্রেডিট', 'ফুটারের নিচে ডেভেলপার ও GitHub লিংক।'],
+                        ] as $toggleKey => [$toggleLabel, $toggleHelp])
+                            <label class="flex cursor-pointer items-start gap-3 rounded-xl border border-line px-4 py-3">
+                                <input type="hidden" name="appearance[{{ $toggleKey }}]" value="0">
+                                <input type="checkbox" name="appearance[{{ $toggleKey }}]" value="1" class="mt-0.5 h-4 w-4 rounded border-line text-brand-600" @checked($bool('appearance.'.$toggleKey))>
+                                <span>
+                                    <span class="block text-sm font-medium text-ink">{{ $toggleLabel }}</span>
+                                    <span class="block text-xs text-ink-muted">{{ $toggleHelp }}</span>
+                                </span>
+                            </label>
+                        @endforeach
                     </div>
                 </div>
 
@@ -174,6 +373,13 @@
                             <p class="help">PNG, SVG বা ICO — সর্বোচ্চ ১ MB।</p>
                         </div>
                     </div>
+                </div>
+
+                <div class="card p-5 sm:p-6 xl:col-span-2">
+                    <h3 class="text-base font-semibold text-ink">কাস্টম CSS</h3>
+                    <p class="text-xs text-ink-muted">উন্নত ব্যবহারের জন্য। এখানে লেখা CSS পাবলিক সাইটের সব পেজে যুক্ত হবে।</p>
+                    <textarea name="appearance[custom_css]" id="appearance_custom_css" rows="6" class="input mt-4 font-mono text-xs" maxlength="20000" spellcheck="false" placeholder=".site-announcement { letter-spacing: .02em; }">{{ $val('appearance.custom_css') }}</textarea>
+                    <p class="help">সর্বোচ্চ ২০,০০০ অক্ষর। থিমের ডিফল্ট স্টাইল না ভাঙার জন্য নির্দিষ্ট সিলেক্টর ব্যবহার করুন।</p>
                 </div>
             </div>
         </section>
@@ -608,6 +814,21 @@
             }
 
             tabs.forEach((tab) => tab.addEventListener('click', () => activate(tab.dataset.settingsTab)));
+
+            document.querySelectorAll('[data-color-picker]').forEach((picker) => {
+                const value = picker.parentElement.querySelector('[data-color-value]');
+
+                if (!value) {
+                    return;
+                }
+
+                const sync = () => {
+                    value.value = picker.value.toUpperCase();
+                };
+
+                picker.addEventListener('input', sync);
+                sync();
+            });
         })();
     </script>
 @endpush
